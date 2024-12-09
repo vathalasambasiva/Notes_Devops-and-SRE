@@ -15,6 +15,12 @@ Kubernates
 | Runtime   | Pods         |
 +--------------------------+
 
+Separation of Concerns:
+Deployment: This is used to define the desired state for your application. It controls how many replicas of your Pods are running, handles rolling updates, and ensures that the right version of your application is deployed.
+Service: This is used to expose your application to other services or the external world. It provides stable network access to Pods, regardless of their dynamic IP addresses, and manages load balancing between Pods.
+
+
+
 Basic Level Questions
 What is Kubernetes, and why is it used?
 
