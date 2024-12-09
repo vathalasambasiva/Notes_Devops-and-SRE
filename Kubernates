@@ -1,0 +1,143 @@
+Kubernates
+===========
+
++--------------------------+
+|     Master Node          |
+|--------------------------|
+| API Server  | etcd       |
+| Scheduler   | Controller |
++--------------------------+
+
++--------------------------+
+|      Worker Node         |
+|--------------------------|
+| Kubelet   | Kube Proxy   |
+| Runtime   | Pods         |
++--------------------------+
+
+Basic Level Questions
+What is Kubernetes, and why is it used?
+
+Answer: Kubernetes is an open-source platform designed to automate the deployment, scaling, and management of containerized applications. It is used to ensure that containers run reliably and at scale across clusters of machines.
+Define the following Kubernetes objects:
+
+Pod: The smallest and most basic deployable unit in Kubernetes, which can contain one or more containers.
+Service: An abstraction that defines a set of pods and a policy to access them, typically used for load balancing and exposing applications.
+Deployment: Manages a set of identical pods, ensuring the desired number of replicas are running and can handle rolling updates.
+What is a namespace, and why do we use it in Kubernetes?
+
+Answer: A namespace is a way to divide cluster resources between multiple users or teams, providing isolation and organization. It's used to manage resources and provide access control in large-scale clusters.
+How does a Service differ from a Pod?
+
+Answer: A Pod is a set of containers running together, while a Service is an abstraction that exposes a set of Pods to other services or external consumers. Services enable stable communication even if Pods are created or deleted.
+Explain the purpose of the kube-apiserver.
+
+Answer: The kube-apiserver is the entry point for all Kubernetes REST API calls. It processes requests, validates them, and updates the corresponding objects in the Kubernetes cluster.
+What is etcd, and why is it important in Kubernetes?
+
+Answer: etcd is a distributed key-value store that holds all the cluster’s data, including configurations, secrets, and the desired state of the system. It's critical for storing the state and configuration data of Kubernetes components.
+What is a Kubernetes node?
+
+Answer: A node is a physical or virtual machine that runs one or more containers (via Pods) in the Kubernetes cluster. Each node contains the necessary services to run Pods, including the kubelet and kube-proxy.
+What are labels and selectors in Kubernetes?
+
+Answer: Labels are key-value pairs attached to Kubernetes objects (like Pods) to categorize and organize them. Selectors are used to filter and query objects based on their labels.
+Explain the difference between a ReplicaSet and a ReplicationController.
+
+Answer: Both ensure that a specified number of Pod replicas are running, but a ReplicaSet is more flexible and works with newer features like label selectors and is the preferred method for managing Pods in modern Kubernetes.
+How do you scale a deployment in Kubernetes?
+
+Answer: You can scale a deployment using the kubectl scale command or by modifying the replicas field in the Deployment YAML and applying it.
+Intermediate Level Questions
+Describe the role of the kube-scheduler.
+
+Answer: The kube-scheduler is responsible for selecting a suitable node for a newly created pod based on resource availability, affinity rules, and other constraints.
+What is the purpose of a ConfigMap and a Secret? How are they used in Pods?
+
+Answer:
+ConfigMap: Stores non-sensitive configuration data (e.g., environment variables, configuration files).
+Secret: Stores sensitive data (e.g., passwords, tokens).
+Both can be injected into Pods either as environment variables or mounted as files.
+Explain Rolling Updates and Canary Deployments in Kubernetes.
+
+Answer:
+Rolling Updates: Gradually replace old Pods with new ones without downtime.
+Canary Deployments: Deploy new versions to a small subset of users before rolling it out to all, allowing for monitoring and testing before full rollout.
+What is the difference between a ClusterIP, NodePort, and LoadBalancer service?
+
+Answer:
+ClusterIP: Exposes the service internally within the cluster.
+NodePort: Exposes the service on a specific port across all nodes in the cluster.
+LoadBalancer: Exposes the service externally using a load balancer.
+How do you troubleshoot a pod stuck in a CrashLoopBackOff state?
+
+Answer:
+Inspect the pod logs using kubectl logs <pod-name>.
+Check the pod’s configuration and resource limits.
+Use kubectl describe pod <pod-name> for more details on the pod’s state.
+Identify application crashes or missing dependencies.
+What is Horizontal Pod Autoscaler (HPA), and how does it work?
+
+Answer: The Horizontal Pod Autoscaler (HPA) automatically scales the number of pods in a deployment based on metrics like CPU utilization or custom metrics.
+How does Kubernetes handle persistent storage, and what are PersistentVolumes and PersistentVolumeClaims?
+
+Answer:
+PersistentVolume (PV): Represents a piece of storage in the cluster that has been provisioned by an administrator.
+PersistentVolumeClaim (PVC): A request for storage by a user, specifying size and access modes.
+PVCs bind to available PVs to provide persistent storage to pods.
+What is the role of the kube-proxy?
+
+Answer: The kube-proxy manages network rules on nodes to allow communication between pods, services, and external clients. It ensures the correct routing of traffic based on services and endpoints.
+How would you debug networking issues between pods in the same namespace?
+
+Answer:
+Use kubectl get pods -o wide to check IP addresses.
+Use kubectl logs to inspect the logs of the Pods.
+Use kubectl exec to run network diagnostic tools like ping, curl, or netcat inside the pods.
+Check network policies and firewall rules.
+What is a DaemonSet, and when would you use it?
+
+Answer: A DaemonSet ensures that a copy of a Pod runs on all (or specific) nodes in the cluster. It's typically used for logging agents, monitoring agents, or network proxies.
+Advanced Level Questions
+How does Kubernetes ensure high availability for the control plane components?
+
+Answer: Kubernetes achieves high availability by running control plane components (like the API server, controller manager, and scheduler) on multiple master nodes across different availability zones or data centers.
+What are Custom Resource Definitions (CRDs), and why are they used?
+
+Answer: CRDs allow you to extend Kubernetes’ API by defining custom resources that behave like native Kubernetes objects. They are used when you need functionality beyond the default set of resources.
+Explain the difference between stateful workloads and stateless workloads in Kubernetes.
+
+Answer:
+Stateless workloads do not maintain any state between restarts and can be scaled horizontally without concerns about storage.
+Stateful workloads require persistent storage and maintain their state across pod restarts.
+How does Kubernetes handle resource limits and requests?
+
+Answer: Kubernetes allows you to specify requests (the minimum resources required for a container) and limits (the maximum resources a container can use) to ensure fair resource allocation and prevent resource starvation.
+Describe the Kubernetes Ingress and how it differs from a Service.
+
+Answer:
+Ingress is a set of rules for routing external HTTP/HTTPS traffic to services within the cluster.
+Service provides an internal method of exposing a set of Pods to other services or users, often without direct external access.
+What is a Pod Disruption Budget (PDB), and why is it important?
+
+Answer: A Pod Disruption Budget (PDB) specifies the minimum number of Pods that must remain available during voluntary disruptions, like draining a node or performing upgrades.
+Explain the lifecycle of a Pod in Kubernetes.
+
+Answer: A Pod's lifecycle includes stages such as Pending (waiting for resources), Running (actively executing containers), Succeeded (all containers exited successfully), and Failed (at least one container exited with an error).
+How does the kubelet communicate with the control plane?
+
+Answer: The kubelet communicates with the control plane via the Kubernetes API server to report the status of nodes and pods and to receive pod specifications to manage the containers.
+What are taints and tolerations, and how are they used in Kubernetes scheduling?
+
+Answer:
+Taints are applied to nodes to repel pods that do not have matching tolerations.
+Tolerations allow Pods to be scheduled on nodes with taints, providing more control over where Pods can be placed.
+How do you secure a Kubernetes cluster (e.g., RBAC, network policies, secrets management)?
+
+Answer:
+RBAC (Role-Based Access Control) is used to define permissions for users and service accounts.
+Network policies control the traffic between pods.
+Secrets store sensitive information securely, and encryption can be enabled for sensitive data at rest.
+
+
+
