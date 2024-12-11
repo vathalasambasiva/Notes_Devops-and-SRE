@@ -167,3 +167,6 @@ checking port deatils
 
 netstat -tuln | grep 3306
 
+finding all server ports 
+========================
+netstat -tuln | grep LISTEN
