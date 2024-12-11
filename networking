@@ -17,3 +17,146 @@ iptables: Manage IP packet filtering rules (Linux).
 firewalld: Manage firewall services (Linux).
 az network nsg: Azure CLI command to manage Network Security Groups.
 gcloud compute firewall-rules: Google Cloud command for firewall rules.
+
+
+
+Basic Linux System Information:
+===============================
+uname -a / uname -srv: Display system information including kernel version.
+lsb_release -a: Show Linux distribution details.
+hostname: Display or change the hostname of the system.
+top: Monitor system performance.
+free -m: Check memory usage.
+df -h: Show disk space usage.
+du -h /path: Display disk usage of a directory.
+ps aux: List all running processes.
+kill <pid>: Terminate a process by its ID.
+reboot: Restart the system.
+shutdown -h now: Shutdown the system immediately.
+
+Networking:
+==========
+ifconfig / ip a: Display network interfaces and IP addresses.
+ping <IP/hostname>: Test connectivity.
+traceroute <IP/hostname>: Trace the route of packets.
+netstat: Show network connections, routing tables, interface statistics.
+iptables: Configure and manage packet filtering and network address translation.
+firewalld: Manage firewall configurations.
+dig <domain>: DNS lookup command.
+curl <URL>: Transfer data from or to a server using URLs.
+
+Troubleshooting:
+===============
+journalctl -xe: View system logs.
+dmesg: View kernel ring buffer messages.
+tail -f /var/log/syslog: Monitor log files in real-time.
+curl -I <URL>: Get HTTP headers to check server response.
+wget <URL>: Download files from the web.
+
+
+Linux:(package mangaemnet )
+======
+apt-get update: Update package lists.
+apt-get install <package>: Install a package.
+yum install <package>: Install a package on CentOS/RHEL.
+dnf install <package>: Install a package on Fedora.
+pip install <package>: Install a Python package.
+npm install <package>: Install a Node.js package.
+gem install <gem>: Install a Ruby gem.
+
+
+System Monitoring:
+=================
+htop: Interactive process viewer.
+sar: Collect, report, and save system activity information.
+vmstat: System performance.
+top: System process viewer.
+ps aux | grep <process>: Find a specific process.
+
+
+Log Management:
+===============
+tail -f /var/log/syslog: Monitor system logs.
+journalctl -u <service>: View systemd journal logs.
+docker logs <container_id>: Show Docker container logs.
+
+Prometheus
+==========
+prometheus --config.file=<config-file>: Start Prometheus server.
+curl http://<prometheus-server>:<port>/metrics: Get Prometheus metrics.
+
+Grafana:
+========
+grafana-cli plugins list: List installed Grafana plugins.
+grafana-cli admin reset-admin-password <password>: Reset Grafana admin
+
+Network Monitoring
+==================
+ping <host>: Test network connectivity.
+traceroute <host>: Trace network route.
+netstat -ant: Display active connections.
+ss -tuln: List listening sockets.
+
+SSH:
+===
+ssh <user>@<host>: Connect to a remote host.
+ssh-keygen -t rsa: Generate SSH keys.
+ssh-copy-id <user>@<host>: Copy SSH keys to a remote host.
+ssh-add <key>: Add a private key to the SSH agent.
+
+SSL/TLS:
+=======
+openssl req -new -x509 -keyout <key-file> -out <cert-file> -days 365: Generate a self-signed certificate.
+openssl genrsa -out <key-file> 2048: Generate a private RSA key.
+openssl req -new -key <key-file> -out <csr-file>: Generate a Certificate Signing Request.
+
+
+           Certificates adding using gitbash (JKS)
+
+1.	Open git bash ( where certificate is located) 
+2.	Pass the below  url change the alias name file name  (those 3 changes based on actually path details )
+keytool -importcert -alias devkeystore -keystore devkeystore.jks -storepass changeit -file mmbrokerservice-dev.cer
+
+once jks file is generated you can login winscp and move that file local to server 
+
+and place the file in that particular location 
+
+note :
+before that kill that server and rename that jks old file 
+
+
+script 
+======
+#!/bin/bash
+CERT_FILE="mmbrokerservice-dev.cer"
+KEYSTORE_FILE="devkeystore.jks"
+STORE_PASS="changeit"
+ALIAS_NAME="devkeystore"
+DEST_PATH="/path/to/server/keystore/location"
+
+# Create JKS
+keytool -importcert -alias $ALIAS_NAME -keystore $KEYSTORE_FILE -storepass $STORE_PASS -file $CERT_FILE
+
+# Transfer JKS (scp or rsync)
+scp $KEYSTORE_FILE user@server:$DEST_PATH
+
+# Backup old JKS on server
+ssh user@server "mv $DEST_PATH/devkeystore.jks $DEST_PATH/devkeystore.jks.bak"
+
+# Deploy new JKS
+ssh user@server "mv $KEYSTORE_FILE $DEST_PATH"
+
+# Restart server
+ssh user@server "systemctl restart your-service"
+
+
+validating steps 
+===============
+openssl x509 -in mmbrokerservice-dev.cer -text -noout
+openssl x509 -enddate -noout -in mmbrokerservice-dev.cer  -- expir date we can check
+
+
+
+Command	Purpose	Protocol/Method	Typical Use Cases
+ping	Tests connectivity between two devices.	ICMP (low-level)	Check if a server is reachable.
+curl -I	Retrieves HTTP headers from a web server.	HTTP/HTTPS (application-level)	Verify server status and inspect HTTP response.
