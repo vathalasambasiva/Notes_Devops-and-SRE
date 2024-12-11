@@ -160,3 +160,10 @@ openssl x509 -enddate -noout -in mmbrokerservice-dev.cer  -- expir date we can c
 Command	Purpose	Protocol/Method	Typical Use Cases
 ping	Tests connectivity between two devices.	ICMP (low-level)	Check if a server is reachable.
 curl -I	Retrieves HTTP headers from a web server.	HTTP/HTTPS (application-level)	Verify server status and inspect HTTP response.
+
+
+checking port deatils 
+=====================
+
+netstat -tuln | grep 3306
+
