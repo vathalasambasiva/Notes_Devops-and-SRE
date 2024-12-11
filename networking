@@ -1,0 +1,19 @@
+Basic Network Commands:
+=======================
+ifconfig: View and manage network interfaces (Linux).
+ip a: Display detailed information about network interfaces (Linux).
+netstat: Display network connections, routing tables, interface statistics, masquerade connections, and multicast memberships.
+ss: An improved netstat command showing sockets statistics.
+ping: Test connectivity to a host.
+traceroute: Trace the route packets take to reach a destination.
+dig: DNS lookup command.
+tcpdump: Network packet analyzer.
+
+
+
+Firewall Commands:
+=================
+iptables: Manage IP packet filtering rules (Linux).
+firewalld: Manage firewall services (Linux).
+az network nsg: Azure CLI command to manage Network Security Groups.
+gcloud compute firewall-rules: Google Cloud command for firewall rules.
