@@ -1,0 +1,12 @@
+Linux: 
+1- How to check the list of installed packages?   (Ubantu dpkg --list ) (RHEL-- rpm -qa)
+2- Command to check kernel version.               (uname -a and uname -r)
+3- How to create a new user and add it as sudo?   (1.sudo adduser username  2.sudo usermod -aG sudo username(ubantu)  sudo usermod -aG wheel username(RHEL))
+Verify
+su - username
+sudo whoami
+ 
+4- Command to check if a process called "a" is running or not. If running how stop it.  ( ps aux|grep "a" )
+5- Command to list all files less than 5mb.    ( find /path/to/search -type f -size -5M )
+6- Hard link v/s soft link.                    (ln source_file hard_link   ln -s source_file soft_link)
+7- Commands to check disk space usage and free RAM.   (df -h) and free -h  (memory top and htop)
