@@ -1,0 +1,151 @@
+1. Grafana Basics
+What is Grafana, and why is it used?
+
+Grafana is an open-source visualization and analytics tool. It is used to visualize data from various data sources like Prometheus, Elasticsearch, and InfluxDB, and to create interactive dashboards.
+What are the key features of Grafana?
+
+Interactive dashboards.
+Alerting.
+Integration with multiple data sources.
+User and role management.
+Support for plugins and custom panels.
+2. Dashboard Creation
+How do you create a dashboard in Grafana?
+
+Log in to Grafana.
+Click on the "+" icon and select "Dashboard."
+Add panels, choose a data source, and configure queries.
+Save the dashboard.
+What are panels in Grafana, and what types are available?
+
+Panels are the building blocks of dashboards that display data visually. Types include:
+Graph
+Gauge
+Table
+Heatmap
+Logs
+How do you use variables in Grafana dashboards?
+
+Variables allow dynamic dashboards. Define variables under "Dashboard Settings" > "Variables."
+Use them in queries as $variable_name or ${variable_name}.
+3. Data Sources
+What data sources can Grafana connect to?
+
+Common data sources include:
+Prometheus
+Elasticsearch
+InfluxDB
+MySQL/PostgreSQL
+Loki (for logs)
+How do you configure a new data source in Grafana?
+
+Go to Configuration > Data Sources.
+Click "Add Data Source."
+Select the type and provide the connection details (e.g., URL, authentication).
+How would you troubleshoot if a Grafana dashboard is not displaying data?
+
+Verify data source configuration.
+Test the query in the data source's native UI (e.g., Prometheus or SQL CLI).
+Check if the time range is appropriate.
+Review permissions and network connectivity.
+4. Alerting
+How do you create alerts in Grafana?
+
+Alerts can be created in supported panel types (e.g., Graph):
+Open a panel and go to the Alert tab.
+Set conditions and thresholds.
+Configure notification channels.
+What are notification channels in Grafana?
+
+Channels through which Grafana sends alerts. Examples include:
+Email
+Slack
+PagerDuty
+Microsoft Teams
+Webhooks
+How do you test an alert in Grafana?
+
+Set a test condition in the alert rule.
+Use the "Test Rule" button to simulate and verify the alert.
+What would you do if alerts are firing incorrectly or not at all?
+
+Verify alert conditions.
+Check if the data source is returning the expected values.
+Ensure the notification channel is configured correctly.
+Review Grafana server logs for issues.
+5. Advanced Features
+What are annotations in Grafana?
+
+Annotations mark specific events or time ranges on a graph. They can be added manually or sourced from external data.
+How do you import/export Grafana dashboards?
+
+To export:
+Go to the dashboard, click the "Share" icon, and select "Export."
+To import:
+Click "+" > "Import," then upload the JSON file or paste its contents.
+What are Grafana plugins, and how do you use them?
+
+Plugins extend Grafana's functionality (e.g., new panels or data source integrations).
+Install via Grafana CLI:
+bash
+Copy code
+grafana-cli plugins install <plugin-name>
+Restart Grafana to enable the plugin.
+6. User and Role Management
+How does Grafana handle user authentication?
+
+Supports:
+Built-in username/password.
+LDAP integration.
+OAuth (e.g., Google, GitHub).
+SSO (Single Sign-On).
+What are the different roles in Grafana?
+
+Viewer: Can view dashboards but cannot edit.
+Editor: Can edit and save dashboards.
+Admin: Full access to configuration and user management.
+How do you secure a Grafana instance?
+
+Use HTTPS for secure communication.
+Enable authentication (e.g., OAuth or LDAP).
+Regularly update Grafana to the latest version.
+Restrict user roles and permissions.
+7. Real-World Scenarios
+Scenario: A business-critical dashboard is showing inconsistent data. How would you troubleshoot?
+
+Check the data source for connectivity issues.
+Validate the queries for syntax errors.
+Test with different time ranges.
+Verify if the underlying data source has any data ingestion issues.
+Scenario: You need to monitor and visualize logs alongside metrics. How would you achieve this?
+
+Use Loki as a log aggregation tool.
+Configure Loki as a data source in Grafana.
+Create dashboards to display both logs and metrics side by side.
+8. Best Practices
+What best practices do you follow for Grafana dashboard design?
+
+Use consistent naming conventions for dashboards and panels.
+Group related metrics together.
+Use variables to create reusable and dynamic dashboards.
+Minimize the use of overly complex queries to improve performance.
+Enable alerts only for critical metrics to avoid alert fatigue.
+How do you optimize performance in Grafana for large-scale environments?
+
+Use caching where possible.
+Optimize queries in the data source.
+Set appropriate scrape intervals in the data source.
+Use Grafana's Enterprise features if scalability is a concern.
+9. PromQL and Query Building
+How do you write PromQL queries for Grafana panels?
+
+Example: To get the CPU usage:
+promql
+Copy code
+rate(node_cpu_seconds_total{mode!="idle"}[5m])
+Scenario: How would you create a panel to show the 95th percentile of response times?
+
+Use PromQL query:
+promql
+Copy code
+histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))
