@@ -1,0 +1,96 @@
+1. ADD vs. COPY
+Difference:
+
+ADD: More versatile but less predictable.
+Can copy files/directories and automatically extract compressed archives (e.g., .tar, .gz).
+Can download files from remote URLs (e.g., http://example.com).
+COPY: Simpler and more explicit.
+Only copies files or directories from the local build context into the container.
+Does not extract archives or handle URLs.
+Best Practice:
+
+Use COPY unless you specifically need ADD’s additional functionality like archive extraction or URL support. This improves readability and predictability of the Dockerfile.
+2. Entrypoint vs. CMD
+Purpose:
+
+Both define the default command or executable to run in a Docker container, but they behave differently.
+Key Differences:
+
+CMD:
+
+Specifies the default command to execute.
+Can be overridden when starting the container using the docker run command.
+Example:
+dockerfile
+Copy code
+CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT:
+
+Specifies the main command or executable that always runs.
+Arguments passed via docker run are appended to the ENTRYPOINT.
+Example:
+dockerfile
+Copy code
+ENTRYPOINT ["python"]
+CMD ["app.py"]
+Running docker run my-image executes python app.py.
+Running docker run my-image another-script.py executes python another-script.py.
+Best Practice:
+
+Use ENTRYPOINT for fixed commands (e.g., a main application).
+Use CMD for default arguments or if flexibility to override is required.
+3. How to Remove All Unwanted or Unused Docker Objects
+Command: To clean up unused Docker objects (images, containers, volumes, and networks), use:
+
+bash
+Copy code
+docker system prune
+Additional Options:
+
+Remove all stopped containers, unused images, networks, and build caches:
+bash
+Copy code
+docker system prune -a
+Remove unused volumes:
+bash
+Copy code
+docker volume prune
+Important:
+
+Be cautious with -a as it deletes unused images (even those not tagged).
+4. Multistage Docker Build
+Purpose:
+Multistage builds optimize Docker images by reducing their size, separating build dependencies from the runtime environment.
+
+How It Works:
+
+Use multiple FROM statements in a single Dockerfile.
+Build the application in one stage and copy only the necessary artifacts to the final stage.
+Example:
+
+dockerfile
+Copy code
+# Build Stage
+FROM golang:1.17 AS builder
+WORKDIR /app
+COPY . .
+RUN go build -o main .
+
+# Final Stage
+FROM alpine:latest
+WORKDIR /app
+COPY --from=builder /app/main .
+ENTRYPOINT ["./main"]
+Advantages:
+
+Smaller final image.
+Keeps build tools and intermediate files out of the production image.
+5. Is Dockerfile Immutable?
+No, Dockerfiles are not immutable.
+
+The Dockerfile itself is a plain text file and can be modified at any time, but the changes won't affect existing images built from the old version unless the Dockerfile is rebuilt.
+However, Docker images created from a Dockerfile are immutable. Once built, their layers are static and cannot be changed. Any modification requires creating a new image.
+Best Practice:
+
+Use version control (e.g., Git) to track changes to your Dockerfiles.
+Build new images with proper tagging to avoid ambiguity between different versions.
