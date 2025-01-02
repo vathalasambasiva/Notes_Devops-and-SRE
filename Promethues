@@ -1,0 +1,130 @@
+1. Configuration and Setup
+Scenario: You are tasked with setting up Prometheus to monitor a new application. How would you configure it?
+
+Expected Answer:
+Describe how to configure the prometheus.yml file.
+Add the application endpoint as a target.
+Test scraping and ensure metrics are accessible.
+Follow-up: What if the application runs behind a load balancer or reverse proxy?
+
+Talk about using service discovery or scraping individual instances.
+
+
+2. Debugging and Troubleshooting
+Scenario: Prometheus is not scraping metrics from one of your targets. How would you troubleshoot?
+
+Expected Answer:
+Check the prometheus.yml configuration for syntax errors.
+Verify that the target endpoint is reachable (using curl or telnet).
+Inspect the Prometheus UI under /targets for error messages.
+Check the application's metrics endpoint for proper output.
+Follow-up: What would you do if Prometheus could scrape some targets but not others?
+
+Suggest testing network/firewall rules or looking for misconfigured targets.
+
+
+3. Alerts and Notifications
+Scenario: You need to configure an alert for high CPU usage across multiple instances. How would you do it?
+
+Expected Answer:
+Write an alert rule in the alerts.yml file:
+yaml
+Copy code
+- alert: HighCPUUsage
+  expr: avg(rate(node_cpu_seconds_total{mode="idle"}[5m])) < 10
+  for: 1m
+  labels:
+    severity: critical
+  annotations:
+    summary: "High CPU usage detected"
+Reload Prometheus and test the rule.
+Follow-up: How would you integrate alerts with a tool like Slack or PagerDuty?
+
+Mention configuring Alertmanager and adding a webhook or API integration.
+
+
+4. Performance and Scalability
+Scenario: Prometheus is experiencing high memory usage. What could be the issue, and how would you address it?
+Expected Answer:
+Issues:
+Large number of scraped targets.
+Long retention periods.
+High-resolution scraping intervals.
+Solutions:
+Reduce the scrape interval for less critical jobs.
+Use Prometheus federation for scalability.
+Optimize retention settings.
+
+
+5. Monitoring Specific Applications
+Scenario: How would you monitor a Java application using Prometheus?
+
+Expected Answer:
+Use Micrometer or Prometheus Java Client library to expose metrics.
+Configure Prometheus to scrape the metrics endpoint.
+Create specific alerts for Java metrics (e.g., JVM memory usage).
+Follow-up: How would you handle a scenario where the application produces custom metrics?
+
+Suggest creating custom Prometheus collectors in the application.
+
+
+6. Incident and Root Cause Analysis
+Scenario: An alert for high latency is triggered. How would you investigate the issue using Prometheus?
+
+Expected Answer:
+Query Prometheus for http_request_duration_seconds metrics.
+Check related metrics like CPU, memory, and network traffic.
+Correlate application logs with the time of high latency.
+Follow-up: What if you notice no anomalies in infrastructure metrics?
+
+Discuss potential application-level bottlenecks, database slowness, or external dependencies.
+
+
+
+7. Integration with Other Tools
+Scenario: How would you integrate Prometheus with Grafana?
+
+Expected Answer:
+Add Prometheus as a data source in Grafana.
+Import or create custom dashboards using Prometheus queries (PromQL).
+Follow-up: How would you create a Grafana alert based on Prometheus data?
+
+Describe setting up a threshold condition and configuring the notification channel.
+
+
+8. PromQL (Query Language) Scenarios
+Scenario: Write a query to get the average memory usage across all instances over the last 5 minutes.
+
+Expected Answer:
+promql
+Copy code
+avg(rate(node_memory_MemTotal_bytes[5m]))
+Follow-up: How would you filter the query for a specific instance?
+
+Use a label selector:
+promql
+Copy code
+avg(rate(node_memory_MemTotal_bytes{instance="instance1"}[5m]))
+
+
+9. Real-World Problem Solving
+Scenario: Your team reports that a dashboard is missing metrics for a specific service. How do you resolve it?
+Expected Answer:
+Check Prometheus targets for the service.
+Verify the metrics endpoint is reachable and outputs correctly.
+Confirm Grafana is querying the right Prometheus data source.
+Ensure the dashboard's query is accurate.
+
+
+10. Best Practices
+Scenario: What best practices would you follow when setting up Prometheus in production?
+Expected Answer:
+Use service discovery for dynamic environments.
+Optimize scrape intervals based on the criticality of services.
+Use Prometheus federation for scaling large environments.
+Secure Prometheus with authentication and HTTPS.
+Regularly review and refine alert rules to reduce noise.
+
+
+
+
