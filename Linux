@@ -7,7 +7,7 @@ su - username
 sudo whoami
  
 4- Command to check if a process called "a" is running or not. If running how stop it.  ( ps aux|grep "a" )
-5- Command to list all files less than 5mb.    ( find /path/to/search -type f -size -5M )
+5- Command to list all files less than 5mb.    ( find /path/to/search -type f -size -5M )  ------------>    find /apps/fix/traf_gateway/  -name sys.out
 6- Hard link v/s soft link.                    (ln source_file hard_link   ln -s source_file soft_link)
 7- Commands to check disk space usage and free RAM.   (df -h) and free -h  (memory top and htop)
 ============================================================
