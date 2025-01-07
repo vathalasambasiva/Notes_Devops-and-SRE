@@ -1,0 +1,139 @@
+1. What is DevOps Lifecycle?  
+- The DevOps lifecycle includes: Plan → Develop → Build → Test → Release → Deploy → Operate → Monitor.
+
+2. Have you used any Linux Flavors, if yes, which one?  
+- Yes, I have experience with Red Hat Enterprise Linux (RHEL), Ubuntu, and Amazon Linux 2.
+
+3. Command to change the ownership and permission of a file or directory in Linux?  
+- `chown user:group filename`  
+- `chmod 755 filename`
+
+4. How do you manage and view running processes in Linux?  
+- View processes: `ps aux`  
+- Manage processes: `top` or `kill -9 <PID>`
+
+5. What is SSH?  
+- SSH (Secure Shell) is a protocol to securely connect to remote servers.  
+- Example: `ssh username@hostname`
+
+6. What is DNS, and how does it work?  
+- DNS (Domain Name System) resolves domain names to IPs.  
+1. User enters URL → Browser queries DNS → DNS returns IP → Browser connects to IP.
+
+7. What is NAT and why is it used?  
+- NAT (Network Address Translation) maps private IPs to public IPs for internet access, improving security and saving IPs.
+
+8. Difference between TCP and UDP Protocols?  
+- TCP: Reliable, connection-based (e.g., HTTP, FTP).  
+- UDP: Fast, connectionless (e.g., video streaming, DNS).
+
+9. What is Git, and how do we use it in DevOps?  
+- Git is a version control system.  
+- Examples:  
+  `git clone <repo_url>`  
+  `git commit -m "Message"`  
+  `git push origin main`
+
+10. Workflow to push code from local machine?  
+1. Initialize repo: `git init`  
+2. Add files: `git add .`  
+3. Commit changes: `git commit -m "Message"`  
+4. Push: `git push origin <branch>`
+
+11. Revert a commit in Git?  
+- Specific commit: `git revert <commit_hash>`  
+- Last commit: `git reset --soft HEAD~1`
+
+12. What is a Branch in a Repository?  
+- A branch is a separate development line.  
+- Create: `git branch <branch_name>`  
+- Switch: `git checkout <branch_name>`
+
+13. What cloud are you familiar with?  
+- AWS, GCP, and Azure.
+
+14. What is VPC in cloud?  
+- VPC (Virtual Private Cloud) is an isolated network in a cloud environment.
+
+15. Difference between Private and Public Subnet?  
+- Private: No direct internet access (for DBs).  
+- Public: Internet-facing (for web servers).
+
+16. Reserved Instance vs. Spot Instances?  
+- Reserved: Long-term discounts.  
+- Spot: Low-cost, interruptible.
+
+17. What is AWS CloudFormation?  
+- Automates resource provisioning using templates.
+
+18. Popular IaC tools?  
+- Terraform, Ansible, AWS CloudFormation.
+
+19. Difference between Terraform & Ansible?  
+- Terraform: Infrastructure provisioning.  
+- Ansible: Configuration management.
+
+20. What is a playbook in Ansible?  
+- YAML file defining automation tasks.
+
+21. What is a state file in Terraform?  
+- Tracks resource configurations.
+
+22. Terraform Remote State Backend?  
+- Stores Terraform state on a shared backend (e.g., S3).
+
+23. Difference between Virtualization and Containerization?  
+- Virtualization: Uses VMs; heavier.  
+- Containerization: Uses containers; lightweight.
+
+24. What problem does Docker solve?  
+- Simplifies app deployment via containers.
+
+25. What is a Dockerfile?  
+- Instructions for building Docker images.
+
+26. Workflow to create Docker Container?  
+1. Build image: `docker build -t <image_name> .`  
+2. Run container: `docker run -d <image_name>`
+
+27. Manage multiple Containers?  
+- Use Docker Compose: `docker-compose up -d`  
+- View containers: `docker ps`
+
+28. What is CI/CD in DevOps?  
+- CI: Continuous Integration.  
+- CD: Continuous Deployment/Delivery.
+
+29. CI/CD tools used?  
+- Jenkins, GitLab CI/CD, AWS CodePipeline.
+
+30. Create a CI/CD pipeline?  
+1. Configure SCM (e.g., Git).  
+2. Add build steps (e.g., Maven, npm).  
+3. Deploy artifacts (e.g., Docker, Kubernetes).
+
+31. Staging, Production, and Testing Environment?  
+- Testing: Bug fixes.  
+- Staging: Pre-prod replica.  
+- Production: Live.
+
+32. What is Blue-Green Deployment?  
+- Zero-downtime using two environments (Blue: current, Green: new).
+
+33. What is Canary Deployment?  
+- Roll out to a subset before full release.
+
+34. Biggest issue faced, and resolution?  
+- Database downtime during deployment. Resolved with rolling updates and backups.
+
+35. How to scale an application?  
+- Use auto-scaling (AWS) or Kubernetes HPA.
+
+36. Rollback if something fails?  
+- Example: `kubectl rollout undo deployment <name>`
+
+37. Automate Deployments?  
+- Use CI/CD tools like Jenkins, GitLab, Spinnaker.
+
+38. Tools for automating deployments?  
+- Jenkins, Ansible, Kubernetes, Docker.
