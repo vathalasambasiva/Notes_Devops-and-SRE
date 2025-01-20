@@ -810,3 +810,63 @@ A:
 
 ========================================
 
+
+:: ********************************************
+:: Production Deployment: Stage 6
+:: Canary and Blue-Green Deployment
+:: Objective: Deploy the application incrementally to minimize risk.
+:: ********************************************
+
+:: ---------- Canary Deployment ----------
+:: Step 1: Roll out the new version to a small percentage of users.
+kubectl set traffic-split my-service --percent 5 --version=v2
+:: Explanation: This directs 5% of the traffic to the new version (v2).
+
+:: Step 2: Monitor system behavior (errors, latency, resource usage).
+kubectl logs -l app=my-service -c v2
+kubectl top pods --namespace=production
+:: Explanation: Check logs and resource usage for the v2 deployment.
+
+:: Step 3: Gradually increase traffic to the new version.
+kubectl set traffic-split my-service --percent 50 --version=v2
+kubectl set traffic-split my-service --percent 100 --version=v2
+:: Explanation: Incrementally route more traffic to v2 as it proves stable.
+
+:: Step 4: Roll back automatically if issues are detected.
+kubectl rollout undo deployment/my-service
+:: Explanation: Revert to the previous version if monitoring detects anomalies.
+
+:: ---------- Blue-Green Deployment ----------
+:: Step 1: Maintain two environments: Blue (Current), Green (New).
+kubectl create namespace blue
+kubectl create namespace green
+kubectl apply -f app-deployment-blue.yaml --namespace=blue
+kubectl apply -f app-deployment-green.yaml --namespace=green
+:: Explanation: Deploy the current (blue) and new (green) versions separately.
+
+:: Step 2: Validate the Green environment.
+kubectl exec -it -n green <pod-name> -- curl http://localhost:8080/health
+:: Explanation: Verify the new version is healthy and operational.
+
+:: Step 3: Switch traffic to the Green environment.
+kubectl set service my-service --namespace=green
+:: Explanation: Direct all traffic to the Green (new version) environment.
+
+:: Step 4: Gradually increase traffic and monitor.
+kubectl apply -f istio-traffic-shift.yaml
+:: Explanation: Use Istio or a load balancer to shift traffic incrementally.
+
+:: Step 5: Automate rollback if issues occur.
+kubectl rollout undo deployment --namespace=green
+:: Explanation: Automatically revert to Blue if the new version fails.
+
+:: ---------- Tools Used ----------
+:: - Spinnaker: Automates deployment with Canary/Blue-Green strategies.
+:: - Argo Rollouts: Manages traffic shifts and rollbacks.
+:: - Kubernetes: Orchestrates deployments and traffic splits.
+:: - Istio: Manages traffic routing and load balancing.
+:: - AWS Application Load Balancer: Directs and controls traffic routing.
+
+:: ********************************************
+:: Deployment Completed: Application is live!
+:: ********************************************
