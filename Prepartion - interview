@@ -1,1 +1,812 @@
+========================================
+       INFOSYS INTERVIEW QUESTIONS      
+========================================
+
+Q: Walk me through your profile.
+A: I have X years of experience in DevOps, focusing on CI/CD, infrastructure as code (IaC), containerization, and monitoring solutions. My work emphasizes streamlining deployments, improving application security, and ensuring system reliability.
+
+Q: What are the tools and technologies you have worked on?
+A: 
+   - CI/CD Tools: Jenkins, GitLab CI/CD
+   - Version Control: Git, GitHub
+   - Containerization: Docker, Kubernetes
+   - IaC: Terraform, Ansible
+   - Monitoring: Prometheus, Grafana, Loki
+   - Cloud: AWS, Azure, GCP
+
+Q: Tell me about traditional DevOps vs GitOps approaches.
+A: 
+   - **Traditional DevOps**: Involves manual or automated scripts for deployments. CI/CD pipelines are the central workflow.
+   - **GitOps**: Uses Git as the source of truth for deployments. Tools like ArgoCD or FluxCD automate changes based on Git commits.
+
+Q: How does ArgoCD work?
+A: ArgoCD monitors Git repositories for changes, syncs the desired state to Kubernetes clusters, and ensures the actual cluster state matches the repository.
+
+Q: What are the best practices to identify early bugs and perform issue analysis?
+A: 
+   - Shift-left testing in CI/CD.
+   - Automated unit and integration tests.
+   - Static code analysis using tools like SonarQube.
+   - Real-time monitoring and centralized logging with tools like Prometheus and the ELK stack.
+
+Q: Walk me through your pipeline in your projects.
+A: 
+   1. Code is checked out from GitHub.
+   2. Static code analysis using SonarQube.
+   3. Application is built and packaged using Maven or Docker.
+   4. Tests (unit, integration, functional) are executed.
+   5. Artifacts are deployed to staging or production via Jenkins or ArgoCD.
+   6. Post-deployment monitoring and feedback loops.
+
+Q: What is a Dockerfile, and what does it contain?
+A: A Dockerfile is a text file with instructions to build a Docker image. It typically includes:
+   - Base image
+   - Commands to copy application code
+   - Commands to install dependencies
+   - Configuration settings
+   - Entry point or CMD instructions
+
+Q: What is a layer in a Dockerfile?
+A: Each instruction in a Dockerfile creates a layer. Layers improve build efficiency and caching, allowing changes to propagate without rebuilding the entire image.
+
+Q: CMD vs ENTRYPOINT in Docker:
+A: 
+   - **CMD**: Specifies the default command for the container when started.
+   - **ENTRYPOINT**: Configures the container as an executable, focusing on executing the main task.
+
+Q: What tools do you use for image scanning?
+A: Tools like Trivy, Clair, Aqua Security, or Docker’s built-in image scanning capabilities.
+
+Q: How do you measure code quality and apply quality gates?
+A: Using SonarQube to enforce metrics like:
+   - Code coverage
+   - Maintainability index
+   - Security vulnerability detection
+   - Adherence to coding standards
+
+Q: What DevSecOps practices do you follow?
+A: 
+   - SAST and DAST scanning
+   - Image vulnerability assessments
+   - RBAC for access control
+   - Encryption for data at rest and in transit
+   - Continuous monitoring and audit trails
+
+Q: How do you integrate GitHub with Jenkins for CI/CD?
+A: By configuring webhooks to trigger Jenkins builds automatically upon code changes in GitHub.
+
+Q: How do private Docker Hub images get accessed by Kubernetes?
+A: Kubernetes uses imagePullSecrets to authenticate and pull private images from Docker Hub.
+
+Q: What is infrastructure provisioning?
+A: Automating the creation and configuration of resources like virtual machines, storage, and networks using tools like Terraform or CloudFormation.
+
+Q: What resources have you created using Terraform?
+A: Examples include EC2 instances, S3 buckets, RDS databases, VPCs, subnets, and security groups.
+
+Q: What are the essential tools for Terraform on AWS?
+A: 
+   - AWS CLI for authentication and configuration.
+   - Terraform CLI for writing and applying configurations.
+   - IAM roles for managing access to AWS services.
+
+Q: Explain Ansible’s architecture and its purpose.
+A: Ansible is agentless and uses a controller node to communicate with managed nodes via SSH. It is used for configuration management, application deployment, and task automation.
+
+Q: What is an Ansible playbook?
+A: A YAML file that defines a sequence of tasks to be executed on target machines for automation purposes.
+
+Q: What metrics do you consider as a DevSecOps engineer?
+A: 
+   - Deployment frequency
+   - Mean time to detect (MTTD) and resolve (MTTR)
+   - Number of vulnerabilities fixed
+   - Code quality metrics like coverage and maintainability
+
+Q: How does Prometheus scrape metrics?
+A: Prometheus uses a pull-based model, scraping metrics from endpoints exposed by target services as defined in its configuration.
+
+Q: How does Grafana work?
+A: Grafana queries data sources like Prometheus, Elasticsearch, or Loki, and visualizes metrics using customizable dashboards.
+
+Q: How does Loki work?
+A: Loki indexes log streams and integrates seamlessly with Grafana for log querying and visualization without requiring heavy processing.
+
+========================================
+
+
+
+
+========================================
+         TECHNICAL ROUND QUESTIONS      
+========================================
+
+Q: What is Prometheus, Grafana, and Loki?
+A:
+   - **Prometheus**: A monitoring and alerting tool that scrapes metrics from endpoints.
+   - **Grafana**: A visualization tool used to create dashboards for metrics and logs.
+   - **Loki**: A log aggregation system that integrates seamlessly with Grafana.
+
+Q: What is Kibana?
+A: Kibana is a visualization and analytics tool for Elasticsearch. It is used to explore, visualize, and analyze logs and structured data.
+
+Q: How is Prometheus set up?
+A: 
+   - Install Prometheus on a server or container.
+   - Configure the `prometheus.yml` file with targets to scrape metrics.
+   - Start the Prometheus server and expose its web interface.
+
+Q: What is a log rotate job, and how does it work?
+A: Log rotation manages the size and lifecycle of logs by compressing, moving, or deleting old log files. Tools like `logrotate` automate this process based on defined policies.
+
+Q: What is Jenkins, and how do you use it in your project?
+A: Jenkins is a CI/CD tool used for automating builds, tests, and deployments. Pipelines are defined using declarative or scripted syntax to implement these workflows.
+
+Q: What is Terraform, and what resources have you provisioned?
+A:
+   - **Terraform**: An IaC tool that allows you to manage cloud infrastructure through code.
+   - Resources provisioned: EC2, S3, RDS, VPC, subnets, security groups, and IAM roles.
+
+Q: What are Kubernetes deployments, DaemonSets, and StatefulSets?
+A:
+   - **Deployments**: Manage stateless applications with replicas and updates.
+   - **DaemonSets**: Ensure that a pod runs on all or specific nodes in the cluster.
+   - **StatefulSets**: Manage stateful applications with unique, persistent identifiers.
+
+Q: How is traffic routed inside Kubernetes clusters?
+A: Traffic is routed using services (ClusterIP, NodePort, LoadBalancer) and ingress resources, which manage external access to services.
+
+Q: How do you troubleshoot a pod/node issue in Kubernetes?
+A:
+   - Use `kubectl describe pod <name>` and `kubectl logs <name>` for pod logs.
+   - Check node conditions using `kubectl get nodes` and `kubectl describe node <name>`.
+   - Monitor resource usage with tools like Prometheus or metrics-server.
+
+Q: What are CronJobs in Kubernetes?
+A: CronJobs schedule tasks at specific intervals, such as backups or batch processing, using the Cron format.
+
+Q: How do you handle alerts in your project?
+A: Alerts are configured in Prometheus or cloud monitoring tools to notify via email, Slack, or PagerDuty. Alert thresholds and escalation policies are predefined.
+
+Q: What is a pod in Kubernetes?
+A: A pod is the smallest deployable unit in Kubernetes, containing one or more containers that share storage and network resources.
+
+Q: How do you access application logs in a container?
+A: Use `docker logs <container_id>` for Docker or `kubectl logs <pod_name>` for Kubernetes.
+
+Q: What is Docker mount and volume?
+A:
+   - **Mount**: Maps host directories to container directories during runtime.
+   - **Volume**: A Docker-managed storage solution to persist data across container restarts.
+
+Q: What happens if Kubernetes master or control plane fails?
+A: In a highly available setup, the failure of one master node is mitigated by other master nodes in the cluster. Otherwise, the cluster becomes inoperable until the master is restored.
+
+Q: What is ingress and egress in Kubernetes?
+A:
+   - **Ingress**: Manages external traffic into the cluster.
+   - **Egress**: Handles outgoing traffic from the cluster.
+
+Q: What are heap and buffer memory in Linux?
+A:
+   - **Heap Memory**: Dynamically allocated memory for application use.
+   - **Buffer Memory**: Memory used by the OS to temporarily store data before writing to disk.
+
+Q: What is a disaster recovery plan?
+A: A strategy to ensure system availability and data protection during catastrophic failures. It includes regular backups, multi-region deployments, and automated failovers.
+
+Q: How do you secure apps running in a VPC?
+A:
+   - Use security groups and NACLs to control access.
+   - Encrypt data using KMS or SSL/TLS.
+   - Enable private subnets for sensitive applications.
+
+Q: How do you check ports running on a server?
+A: Use `netstat -tuln`, `ss -tuln`, or `lsof -i`.
+
+Q: How do you troubleshoot network issues when it’s not accessible?
+A:
+   - Check connectivity using `ping` or `traceroute`.
+   - Verify firewall rules and security groups.
+   - Use `netstat` or `ss` for active connections.
+
+Q: What is the purpose of Amazon CloudFront?
+A: CloudFront is a CDN service that accelerates content delivery by caching data in edge locations closer to users.
+
+Q: How do you roll out updates in Kubernetes?
+A: Updates are handled using rolling updates with `kubectl rollout` commands, ensuring zero downtime.
+
+Q: How do you scale Kubernetes?
+A:
+   - Scale applications using `kubectl scale`.
+   - Enable cluster autoscaling to dynamically adjust node capacity.
+
+Q: What is the state file in Terraform?
+A: The state file tracks the resources managed by Terraform and their current state. It’s critical for updating or destroying resources.
+
+Q: How do you enable passwordless authentication between servers?
+A: By generating an SSH key pair (`ssh-keygen`) and copying the public key to the target server using `ssh-copy-id`.
+
+Q: Explain steps to create an EC2 instance using Terraform.
+A:
+   1. Define the `provider` block for AWS.
+   2. Write an `aws_instance` resource block with details like AMI, instance type, and key pair.
+   3. Run `terraform init`, `terraform plan`, and `terraform apply`.
+
+Q: What are S3 policies and ACL differences?
+A:
+   - **Policies**: Fine-grained control for bucket-level or object-level permissions.
+   - **ACL**: Legacy method for defining access at a simpler level.
+
+Q: Difference between ALB and NLB:
+A:
+   - **ALB**: Works at the application layer (HTTP/HTTPS).
+   - **NLB**: Works at the network layer (TCP/UDP) for high-performance traffic.
+
+========================================
+
+
+
+========================================
+      CI/CD AND TERRAFORM QUESTIONS     
+========================================
+
+Q: What is CI/CD, and why is it important in DevOps?
+A: 
+   - **CI (Continuous Integration)**: Automatically integrates code changes into a shared repository to detect errors early.
+   - **CD (Continuous Delivery/Deployment)**: Ensures reliable delivery of applications to staging or production environments.
+   - Importance: CI/CD accelerates software delivery cycles, reduces manual errors, and increases reliability.
+
+Q: How do you set up and configure a CI/CD pipeline in Jenkins?
+A:
+   1. Install required plugins (e.g., Git, Docker).
+   2. Create a pipeline project.
+   3. Define the pipeline using a `Jenkinsfile`.
+   4. Integrate with version control like Git.
+   5. Add stages for build, test, and deploy.
+
+Q: What is the difference between Continuous Integration, Continuous Delivery, and Continuous Deployment?
+A:
+   - **Continuous Integration**: Automated testing after every code commit.
+   - **Continuous Delivery**: Ensures code is always ready for release, requiring manual approval for production.
+   - **Continuous Deployment**: Fully automated, deploying to production without manual intervention.
+
+Q: How do you integrate version control systems like Git with CI/CD pipelines?
+A: By setting up webhooks or polling in tools like Jenkins, GitLab CI/CD, or CircleCI to trigger pipelines automatically upon code changes.
+
+Q: How do you handle secrets and sensitive data in a CI/CD pipeline?
+A:
+   - Use secret management tools like HashiCorp Vault, AWS Secrets Manager, or Jenkins credentials store.
+   - Avoid hardcoding secrets; use environment variables or encrypted files.
+
+Q: What is artifact management, and how do you integrate it into CI/CD workflows?
+A:
+   - **Artifact Management**: Storing and managing build outputs (e.g., JAR files, Docker images).
+   - Tools like Nexus, JFrog Artifactory, or AWS S3 are used for artifact storage and retrieval during deployments.
+
+Q: How do you monitor and maintain CI/CD pipelines to ensure reliability?
+A:
+   - Monitor pipeline performance (execution time, failure rates).
+   - Set up notifications for failures using Slack, email, or PagerDuty.
+   - Conduct regular pipeline audits and reviews.
+
+Q: What is Terraform, and why is it used?
+A:
+   - Terraform is an IaC tool used to automate infrastructure provisioning.
+   - It supports multi-cloud environments and ensures consistent deployments.
+
+Q: What does `terraform init` do?
+A: It initializes the Terraform working directory, downloads provider plugins, and prepares the environment for use.
+
+Q: How do you auto-approve changes in Terraform?
+A: Use the `-auto-approve` flag with `terraform apply` or `terraform destroy`.
+
+Q: Difference between `terraform plan` and `terraform apply`:
+A:
+   - **terraform plan**: Previews the changes Terraform will make.
+   - **terraform apply**: Executes the planned changes to provision resources.
+
+Q: How do you manage sensitive data in Terraform?
+A:
+   - Use variables with `sensitive` flags.
+   - Store secrets in tools like Vault or AWS Secrets Manager.
+   - Enable remote backends with encryption.
+
+Q: What are Terraform providers?
+A: Providers enable Terraform to interact with APIs of different platforms (e.g., AWS, Azure, Kubernetes) for resource management.
+
+Q: Difference between `count` and `for_each`:
+A:
+   - **count**: Creates a specific number of resources.
+   - **for_each**: Creates resources based on an iterable map or set, allowing more dynamic configurations.
+
+Q: How do you import an existing resource into Terraform?
+A: Use `terraform import <resource_type>.<name> <resource_id>` to manage already created resources in Terraform.
+
+Q: What are Terraform modules, and why are they important?
+A:
+   - Modules are reusable blocks of configuration.
+   - They promote consistency, reduce duplication, and simplify complex infrastructure.
+
+Q: What is the Terraform state file, and why is it important?
+A:
+   - The state file tracks the current state of resources managed by Terraform.
+   - It is crucial for detecting changes and ensuring accurate updates.
+
+Q: What is a remote backend in Terraform?
+A: A storage solution (e.g., S3, Azure Blob) to keep the Terraform state file in a centralized location for collaboration and security.
+
+Q: How do you handle dependencies in Terraform?
+A:
+   - Use `depends_on` to define explicit dependencies.
+   - Rely on resource references to implicitly manage order.
+
+Q: How do you roll back changes in Terraform?
+A:
+   - Restore the state file from a backup.
+   - Adjust the configuration and reapply using `terraform apply`.
+
+========================================
+         AWS-SPECIFIC QUESTIONS         
+========================================
+
+Q: What is AWS Elastic Beanstalk, and why is it important?
+A: Elastic Beanstalk is a Platform-as-a-Service (PaaS) that automates application deployment, including provisioning, scaling, and monitoring resources.
+
+Q: How do you monitor applications in AWS?
+A:
+   - Use Amazon CloudWatch for metrics and alerts.
+   - Enable AWS X-Ray for application tracing.
+   - Use third-party tools like Datadog or New Relic.
+
+Q: How would a failure in a GitLab Runner impact production?
+A:
+   - It could delay or fail CI/CD pipelines.
+   - Mitigation includes high availability setups or fallback runners.
+
+Q: Can we purchase SSL certificates from third-party providers, or should we get them from AWS?
+A:
+   - Both are possible. Third-party certificates can be imported into AWS ACM, or you can use ACM-provided certificates.
+
+Q: How would you ensure the security of data stored in an S3 bucket?
+A:
+   - Enable bucket policies and encryption (SSE-S3, SSE-KMS).
+   - Use IAM roles for access control.
+   - Enable logging and versioning.
+
+Q: What is Amazon CloudFront’s purpose?
+A: CloudFront is a CDN that delivers content with low latency by caching at edge locations.
+
+Q: Can you use a third-party certificate with AWS ACM?
+A: Yes, third-party certificates can be imported into ACM for use with AWS resources.
+
+Q: What types of certificates can we use in AWS?
+A:
+   - Public and private SSL/TLS certificates.
+   - Certificates for ACM or third-party imports.
+
+Q: What is the difference between GitLab and GitHub?
+A:
+   - **GitHub**: Focuses on hosting Git repositories.
+   - **GitLab**: Provides Git hosting along with CI/CD capabilities and DevSecOps features.
+
+Q: Can we use an S3 bucket to build a web application?
+A: Yes, S3 can host static websites by enabling static website hosting and configuring a bucket policy for public access.
+
+========================================
+
+
+========================================
+       REMAINING QUESTIONS & ANSWERS    
+========================================
+
+Q: How does Prometheus scrape metrics of a new service application update?
+A:
+   - Prometheus scrapes metrics by querying targets defined in its configuration.
+   - Services expose metrics at `/metrics` endpoint.
+   - Prometheus discovers targets via static configuration, service discovery (e.g., Kubernetes), or custom relabeling.
+
+Q: How does Grafana work?
+A:
+   - Grafana visualizes metrics from data sources like Prometheus, InfluxDB, or Elasticsearch.
+   - It provides dashboards, alerts, and query customization.
+   - Dashboards pull real-time data from configured sources.
+
+Q: How does Loki work?
+A:
+   - Loki is a log aggregation system designed for efficiency.
+   - It uses labels for indexing instead of full-text search, making it lightweight.
+   - Works seamlessly with Promtail (log collector) and Grafana for visualization.
+
+Q: How do you access running containers?
+A: Use the `docker exec -it <container_id> bash` or `docker attach <container_id>` commands to interact with a container.
+
+Q: How do you check application logs?
+A:
+   - For Docker: `docker logs <container_id>`.
+   - For Kubernetes: `kubectl logs <pod_name>`.
+   - Centralized: Use logging tools like ELK Stack, Loki, or Splunk.
+
+Q: How do you delete the last 7 days’ logs?
+A:
+   - Using shell commands: `find /log/directory -type f -mtime +7 -delete`.
+   - Automated cleanup with log rotation or cron jobs.
+
+Q: What are layers in Docker?
+A:
+   - Layers are intermediate images created for every instruction in a Dockerfile (e.g., `RUN`, `COPY`).
+   - They promote reusability and reduce image size as unchanged layers are cached.
+
+Q: Difference between CMD vs. ENTRYPOINT in Docker:
+A:
+   - **CMD**: Provides default arguments that can be overridden at runtime.
+   - **ENTRYPOINT**: Makes the container behave like an executable, ensuring commands are appended.
+
+Q: How do you manage secrets in Kubernetes, Jenkins, or Docker?
+A:
+   - **Kubernetes**: Use Kubernetes Secrets.
+   - **Jenkins**: Store secrets in Credentials Manager.
+   - **Docker**: Use Docker Secrets or environment variables.
+
+Q: What are deployments, DaemonSets, and StatefulSets in Kubernetes?
+A:
+   - **Deployment**: Manages stateless applications; provides scaling and rolling updates.
+   - **DaemonSet**: Ensures one pod per node, typically used for monitoring/logging agents.
+   - **StatefulSet**: Manages stateful applications, ensuring predictable pod identity and stable storage.
+
+Q: What happens when control and master nodes fail in Kubernetes?
+A:
+   - Worker nodes continue running, but new scheduling and cluster management halt.
+   - To recover, restore master nodes from backups or HA configurations.
+
+Q: What is a CronJob in Kubernetes?
+A:
+   - A CronJob schedules tasks to run periodically or at specific times.
+   - Defined using cron-like syntax.
+
+Q: How is traffic routed inside Kubernetes clusters?
+A:
+   - **Service**: Routes traffic to pods.
+   - **Ingress**: Manages HTTP/S traffic with routing rules.
+   - **ClusterIP**: Default service type for internal communication.
+
+Q: What is Ingress and Egress in Kubernetes?
+A:
+   - **Ingress**: Controls incoming traffic to services.
+   - **Egress**: Manages outbound traffic from pods to external networks.
+
+Q: What is Heap and Buffer memory in Linux?
+A:
+   - **Heap Memory**: Dynamically allocated memory for applications.
+   - **Buffer Memory**: Temporary storage for I/O operations.
+
+Q: What is Netstat, and what is it used for?
+A:
+   - Netstat displays network connections, routing tables, and interface statistics.
+   - Usage: `netstat -tuln` shows active listening ports.
+
+Q: What is the importance of the state file in Terraform?
+A:
+   - Tracks the actual state of resources.
+   - Required for plan and apply operations.
+   - Avoids creating duplicate resources.
+
+Q: How do you handle disk and CPU alerts?
+A:
+   - Set up monitoring tools (e.g., CloudWatch, Prometheus).
+   - Automate responses like scaling or cleaning up resources.
+
+Q: What is a disaster recovery plan?
+A:
+   - Strategies for restoring infrastructure and services during outages.
+   - Includes data backups, failover mechanisms, and recovery point objectives (RPOs).
+
+Q: How do you manage more containers in Kubernetes?
+A:
+   - Use horizontal pod autoscalers.
+   - Group containers logically with namespaces.
+   - Monitor with tools like Prometheus.
+
+Q: How do you troubleshoot a container that is not accessible?
+A:
+   - Check container logs: `docker logs` or `kubectl logs`.
+   - Verify container status: `docker ps` or `kubectl get pods`.
+   - Ensure network policies and service configurations are correct.
+
+Q: How do you enable passwordless authentication between two servers?
+A:
+   - Generate an SSH key pair with `ssh-keygen`.
+   - Copy the public key to the remote server: `ssh-copy-id user@remote-server`.
+
+Q: What are filesystem access controls in Linux?
+A:
+   - Managed through permissions, ACLs, and ownership.
+   - Tools: `chmod`, `chown`, and `setfacl`.
+
+Q: Explain steps to create an EC2 instance with Terraform:
+A:
+   1. Write a configuration file with `resource "aws_instance"`.
+   2. Initialize Terraform: `terraform init`.
+   3. Preview: `terraform plan`.
+   4. Apply changes: `terraform apply`.
+
+Q: What is DNS, and how do you map it with an IP?
+A:
+   - DNS resolves domain names to IP addresses.
+   - Map a domain by creating an A record in your DNS settings pointing to the server's IP.
+
+Q: Difference between ALB and NLB:
+A:
+   - **ALB (Application Load Balancer)**: Operates at Layer 7, supporting HTTP/S and WebSocket.
+   - **NLB (Network Load Balancer)**: Operates at Layer 4, suited for high-performance TCP/UDP traffic.
+
+========================================
+
+
+
+========================================
+       REMAINING QUESTIONS & ANSWERS    
+========================================
+
+Q: What is AWS Elastic Beanstalk, and why is it important?
+A:
+   - AWS Elastic Beanstalk is a PaaS that automates deployment and scaling of web applications.
+   - It supports multiple programming languages and simplifies infrastructure management.
+
+Q: How do you monitor applications in AWS?
+A:
+   - Use tools like Amazon CloudWatch, AWS X-Ray, and ELB access logs.
+   - Implement alarms, dashboards, and detailed metrics.
+
+Q: How would a failure in a GitLab Runner impact production?
+A:
+   - CI/CD pipelines using the runner will fail.
+   - To prevent impact, use multiple runners and self-hosted options for redundancy.
+
+Q: Can we purchase SSL certificates from third-party providers, or should we get them from Amazon?
+A:
+   - Both options are valid.
+   - AWS Certificate Manager (ACM) offers free and managed SSL certificates.
+
+Q: How would you address network latency issues causing continuous page loading?
+A:
+   - Optimize DNS with Amazon Route 53 latency routing.
+   - Enable caching with CloudFront or an application-level CDN.
+   - Use AWS Global Accelerator for faster routing.
+
+Q: How would you alert a specific user when they create a service in an AWS account?
+A:
+   - Set up an AWS Config rule to monitor resource creation.
+   - Trigger an Amazon SNS notification or Lambda function.
+
+Q: How would you ensure the security of data stored in an S3 bucket?
+A:
+   - Enable encryption (SSE-S3 or SSE-KMS).
+   - Apply bucket policies and IAM roles with least privilege.
+   - Enable logging and monitoring with CloudTrail.
+
+Q: What is AWS ACM (AWS Certificate Manager)?
+A:
+   - AWS ACM manages SSL/TLS certificates for securing network traffic.
+   - Provides automated certificate renewal and easy integration with AWS services.
+
+Q: If users experience latency and slowness when logging into an AWS-hosted application, how would you address the issue?
+A:
+   - Investigate ELB health checks and scaling policies.
+   - Analyze application logs and CloudWatch metrics.
+   - Use AWS X-Ray to identify bottlenecks.
+
+Q: How do you take notes during a Knowledge Transfer (KT) session? What key points would you focus on?
+A:
+   - Use structured formats (e.g., headings for topics and subtopics).
+   - Focus on:
+     - System architecture.
+     - Key processes.
+     - Tools and technologies used.
+     - Known issues and troubleshooting steps.
+
+Q: What is the purpose of Amazon CloudFront?
+A:
+   - CloudFront is a CDN that delivers content with low latency.
+   - It caches content at edge locations to improve speed.
+
+Q: Is it possible to use a third-party certificate with AWS ACM?
+A:
+   - No, ACM does not support importing third-party certificates.
+   - Use IAM Certificate Store for third-party certificates.
+
+Q: Do you have experience with GitLab Runner?
+A:
+   - Yes. GitLab Runner is used for CI/CD pipelines to build, test, and deploy code.
+   - It supports multiple executors like Docker, Kubernetes, and shell.
+
+Q: How would you troubleshoot an application error like “service not found”?
+A:
+   - Verify the service is running.
+   - Check DNS or service discovery.
+   - Inspect logs and ensure proper network configurations.
+
+Q: If asked to build an entire infrastructure, where would you start?
+A:
+   - Begin with requirement gathering and architectural planning.
+   - Provision foundational components like VPC, subnets, and security groups.
+   - Deploy applications and monitoring tools.
+
+Q: Can we use an S3 bucket to build a web application?
+A:
+   - Yes, S3 supports static website hosting.
+   - Use Route 53 or CloudFront for DNS and caching.
+
+Q: What is the difference between GitLab and GitHub?
+A:
+   - **GitHub**: Focused on version control and collaboration.
+   - **GitLab**: Includes CI/CD, DevOps, and issue tracking in one platform.
+
+Q: What types of certificates can we use in AWS?
+A:
+   - ACM-generated certificates.
+   - Imported third-party certificates (using IAM Certificate Store).
+
+Q: How do you handle rollback and roll-forward in CI/CD pipelines?
+A:
+   - Implement versioning and tagging of artifacts.
+   - Use blue-green or canary deployments for safe transitions.
+
+Q: What strategies do you use for parallel builds in CI/CD pipelines?
+A:
+   - Use pipeline stages to run independent jobs concurrently.
+   - Leverage features like Jenkins parallel execution or GitLab job dependencies.
+
+Q: How do you integrate artifact management into CI/CD workflows?
+A:
+   - Use tools like Nexus, Artifactory, or AWS CodeArtifact.
+   - Automate artifact publishing after successful builds.
+
+Q: What are Terraform workspaces, and when do you use them?
+A:
+   - Workspaces manage multiple state files within a single configuration.
+   - Useful for managing environments like dev, staging, and prod.
+
+Q: How do you roll back changes in Terraform?
+A:
+   - Restore the previous state file.
+   - Apply configurations from the earlier version of your `.tf` files.
+
+Q: What is the purpose of the `terraform fmt` command?
+A:
+   - Formats Terraform configuration files for better readability and consistency.
+
+Q: How do you handle dependencies in Terraform?
+A:
+   - Use `depends_on` for explicit dependencies.
+   - Use module outputs for implicit dependencies.
+
+========================================
+
+========================================
+       REMAINING QUESTIONS & ANSWERS    
+========================================
+
+Q: What are provisioners in Terraform, and how do they work?
+A:
+   - Provisioners execute scripts or commands on resources after creation or before destruction.
+   - Examples: `local-exec` for local commands and `remote-exec` for SSH commands on remote machines.
+
+Q: What is a remote backend in Terraform, and why use it?
+A:
+   - A remote backend stores Terraform state files in a shared location (e.g., S3, Consul).
+   - It supports collaboration, locks state files, and provides secure storage.
+
+Q: What challenges have you faced with Terraform?
+A:
+   - Managing state file conflicts in team environments.
+   - Debugging complex dependencies between resources.
+   - Ensuring compatibility with provider updates.
+
+Q: How do you scale Kubernetes?
+A:
+   - Scale horizontally by adding more pods using `kubectl scale` or autoscalers.
+   - Scale nodes dynamically with Cluster Autoscaler.
+
+Q: How do you troubleshoot Kubernetes issues when a pod/node goes down?
+A:
+   - Inspect pod status: `kubectl get pods`.
+   - View logs: `kubectl logs <pod_name>`.
+   - Describe resources: `kubectl describe pod <pod_name>`.
+   - Check node health: `kubectl get nodes`.
+
+Q: What is a crashloop backoff in Kubernetes?
+A:
+   - Indicates a pod repeatedly fails to start.
+   - Causes include misconfigurations, missing dependencies, or application bugs.
+
+Q: What are Docker mounts and volumes?
+A:
+   - **Mounts**: Bind directories on the host to containers.
+   - **Volumes**: Managed by Docker, stored in a designated location, and preferred for persistence.
+
+Q: How do you make Kubernetes highly available?
+A:
+   - Use multiple master nodes with a load balancer.
+   - Configure etcd in a clustered setup.
+   - Implement pod replicas and distribute across nodes.
+
+Q: What happens when the Kubernetes master node fails?
+A:
+   - Worker nodes continue running.
+   - Control plane functions (e.g., scheduling) stop.
+   - Recovery involves restoring the master node or using HA configurations.
+
+Q: How do you secure apps running in a VPC?
+A:
+   - Use security groups, network ACLs, and VPC flow logs.
+   - Encrypt traffic using VPNs or TLS.
+   - Restrict access with IAM roles and policies.
+
+Q: How do you find a file location in Linux?
+A:
+   - Use the `find` command: `find /path -name <filename>`.
+
+Q: What is crontab, and how do you schedule a job?
+A:
+   - Crontab is used to schedule repetitive tasks.
+   - Syntax: `* * * * * <command>` (minute, hour, day, month, day of the week).
+
+Q: How do you manage secrets in Kubernetes?
+A:
+   - Store sensitive data as Kubernetes Secrets.
+   - Use external secret managers (e.g., AWS Secrets Manager) for enhanced security.
+
+Q: What is the importance of an artifact repository in DevOps?
+A:
+   - Stores build outputs (artifacts) for reuse.
+   - Facilitates version control and promotes consistency across environments.
+
+Q: What are ALB and NLB in AWS, and when to use them?
+A:
+   - **ALB (Application Load Balancer)**: Best for HTTP/S and WebSocket traffic with routing rules.
+   - **NLB (Network Load Balancer)**: Ideal for high-performance Layer 4 traffic.
+
+Q: How do you perform rolling updates in Kubernetes?
+A:
+   - Use deployments with the `kubectl set image` or `kubectl rollout` commands.
+   - Ensure zero downtime by managing replicas and update strategies.
+
+Q: How do you handle code quality analysis and quality gate checks?
+A:
+   - Use tools like SonarQube for static code analysis.
+   - Apply quality gates to enforce thresholds for test coverage, vulnerabilities, and code smells.
+
+Q: What are the metrics and considerations you present to stakeholders?
+A:
+   - Metrics: Deployment frequency, lead time, incident resolution, uptime.
+   - Considerations: Business impact, risks, and upcoming improvements.
+
+Q: How do you identify early bugs in your projects?
+A:
+   - Implement shift-left testing practices.
+   - Automate testing at every stage of the CI/CD pipeline.
+   - Use tools like static analyzers and automated code reviews.
+
+Q: How do you monitor system health and application performance?
+A:
+   - Use monitoring tools like Prometheus, Grafana, and CloudWatch.
+   - Set up alerts for resource usage, latency, and errors.
+
+Q: What is the difference between PaaS and IaaS?
+A:
+   - **PaaS (Platform as a Service)**: Provides a managed environment for app development.
+   - **IaaS (Infrastructure as a Service)**: Offers virtualized hardware resources.
+
+Q: What is DNS, and how does it work?
+A:
+   - DNS translates domain names into IP addresses.
+   - Uses hierarchical resolution: client queries -> root server -> TLD server -> authoritative server.
+
+Q: How do you receive alerts in your projects, and how are they set up?
+A:
+   - Set up alerts with tools like Prometheus, CloudWatch, or Splunk.
+   - Configure notification channels (e.g., email, Slack, PagerDuty).
+
+========================================
 
