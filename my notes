@@ -22,3 +22,9 @@ Pod: Smaller boxes within nodes that may contain one or more containers.
 |   |   +--------+   +--------+    |   |
 |   +------------------------------+   |
 +--------------------------------------+
+
+
+
+
+Declarative Pipelines: Cleaner, easier to understand, and ideal for most projects.
+Scripted Pipelines: More flexible but harder to maintain, suitable for complex requirement
