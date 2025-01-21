@@ -47,11 +47,33 @@ When to Use Each:
   NodePort: For quick testing or exposing services directly.
   LoadBalancer: For production-grade external access with cloud provider support.
   Ingress: For advanced routing with multiple services, especially in HTTP-based apps.
+========================================================================================================================================
++------------------+       +------------------+       +----------------------+
+|  User/Client     |       |  Load Balancer   |       |   External Services  |
+|  (kubectl/API)   | ----> |  (Ingress/Egress)| <---> |  (DBs, APIs, Storage)|
++------------------+       +------------------+       +----------------------+
+          |
+          v
++-----------------------------------+
+|      Kubernetes Cluster           |
+|                                   |
+|   +---------------------------+   |
+|   |       Control Plane       |   |  <-- API Server, Scheduler, etc.
+|   +---------------------------+   |
+|                                   |
+|   +---------------------------+   |
+|   |          Nodes            |   |
+|   |   (Pods/Containers)       |   |
+|   +---------------------------+   |
++-----------------------------------+
+          ^
+          |
++--------------------------+
+| Monitoring & Logging     |
+|   (e.g., Datadog, ELK)   |
++--------------------------+
 
-Press any key to continue . . .
-
-
-
+==========================================================================================================================================
 
 
 
