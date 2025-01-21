@@ -24,6 +24,35 @@ Pod: Smaller boxes within nodes that may contain one or more containers.
 +--------------------------------------+
 
 
+============================================
+             Kubernetes Services
+============================================
+
+Feature          ClusterIP        NodePort       LoadBalancer    Ingress
+------------------------------------------------------------------------
+Access Scope     Internal         External       External        External
+                 (Cluster-only)   (Node IP+Port) (Cloud LB IP)   (Domain/IP+Path)
+------------------------------------------------------------------------
+Use Case         Internal         Direct         Expose          HTTP(S)
+                 communication    external       services via    routing,
+                                  testing         cloud LB        multiple services
+------------------------------------------------------------------------
+Complexity       Simple           Simple         Moderate        Advanced
+------------------------------------------------------------------------
+Cost             None             None           Cloud-provider  Controller-
+                                                   dependent       dependent
+
+When to Use Each:
+  ClusterIP: For services that only other services or pods need to access.
+  NodePort: For quick testing or exposing services directly.
+  LoadBalancer: For production-grade external access with cloud provider support.
+  Ingress: For advanced routing with multiple services, especially in HTTP-based apps.
+
+Press any key to continue . . .
+
+
+
+
 
 
 Declarative Pipelines: Cleaner, easier to understand, and ideal for most projects.
