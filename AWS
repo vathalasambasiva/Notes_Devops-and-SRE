@@ -1,0 +1,249 @@
+:: **************************************************
+:: Q1: How would you import existing AWS resources into Terraform management?
+:: **************************************************
+:: Step 1: Identify the resource to import (e.g., EC2 instance).
+aws ec2 describe-instances --instance-ids i-0abcd1234efgh5678
+:: Step 2: Write a Terraform configuration matching the resource.
+echo 'resource "aws_instance" "example" {}' > main.tf
+:: Step 3: Import the resource into Terraform state.
+terraform import aws_instance.example i-0abcd1234efgh5678
+:: Step 4: Verify the import with a plan.
+terraform plan
+:: Step 5: Update configuration to include required arguments.
+vi main.tf
+
+:: **************************************************
+:: Q2: How do you manage infrastructure across multiple AWS accounts using Terraform?
+:: **************************************************
+:: Step 1: Configure multiple AWS CLI profiles.
+aws configure --profile dev
+aws configure --profile staging
+aws configure --profile prod
+:: Step 2: Use Terraform provider aliases for each account.
+vi main.tf
+echo '
+provider "aws" {
+  alias   = "dev"
+  profile = "dev"
+  region  = "us-east-1"
+}
+provider "aws" {
+  alias   = "prod"
+  profile = "prod"
+  region  = "us-west-2"
+}
+' >> main.tf
+:: Step 3: Deploy resources for each account using `-target` or workspaces.
+terraform workspace new dev
+terraform apply -var-file=dev.tfvars
+
+:: **************************************************
+:: Q3: How can you implement a blue-green deployment strategy using Terraform?
+:: **************************************************
+:: Step 1: Define separate blue and green environments in Terraform.
+vi main.tf
+echo '
+resource "aws_lb_target_group" "blue" { ... }
+resource "aws_lb_target_group" "green" { ... }
+'
+:: Step 2: Configure the Load Balancer to point to one environment.
+terraform apply -target=aws_lb_target_group.blue
+:: Step 3: Deploy the new version to the green environment.
+terraform apply -target=aws_lb_target_group.green
+:: Step 4: Shift traffic gradually to the green environment.
+aws elbv2 modify-listener --load-balancer-arn arn:aws:lb --default-actions Type=forward,TargetGroupArn=arn:aws:green
+:: Step 5: Roll back traffic to blue if issues are detected.
+aws elbv2 modify-listener --load-balancer-arn arn:aws:lb --default-actions Type=forward,TargetGroupArn=arn:aws:blue
+
+:: **************************************************
+:: Q4: How would you manage state files when working with multiple AWS environments?
+:: **************************************************
+:: Step 1: Use a shared backend (e.g., S3) with environment-specific state files.
+vi backend.tf
+echo '
+terraform {
+  backend "s3" {
+    bucket         = "terraform-states"
+    key            = "dev/terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "terraform-lock"
+  }
+}
+' >> backend.tf
+:: Step 2: Initialize the backend for each environment.
+terraform init -backend-config="key=dev/terraform.tfstate"
+:: Step 3: Use Terraform workspaces for isolation.
+terraform workspace new staging
+
+:: **************************************************
+:: Q5: How do you ensure Terraform configurations comply with AWS best practices?
+:: **************************************************
+:: Step 1: Use a tool like `terraform-compliance` or `OPA` to enforce policies.
+terraform-compliance --planfile tfplan
+:: Step 2: Scan configurations for security vulnerabilities.
+tflint
+checkov -d .
+:: Step 3: Enforce tagging and resource constraints in Terraform.
+vi main.tf
+echo '
+resource "aws_instance" "example" {
+  tags = {
+    "Environment" = var.environment
+    "Owner"       = var.owner
+  }
+}
+' >> main.tf
+
+:: **************************************************
+:: Q6: How do you set up a VPC with public and private subnets in Terraform?
+:: **************************************************
+:: Step 1: Define the VPC and subnets in Terraform.
+vi main.tf
+echo '
+resource "aws_vpc" "example" {
+  cidr_block = "10.0.0.0/16"
+}
+
+resource "aws_subnet" "public" {
+  vpc_id     = aws_vpc.example.id
+  cidr_block = "10.0.1.0/24"
+  map_public_ip_on_launch = true
+}
+
+resource "aws_subnet" "private" {
+  vpc_id     = aws_vpc.example.id
+  cidr_block = "10.0.2.0/24"
+}
+' >> main.tf
+:: Step 2: Apply the configuration.
+terraform apply
+
+:: **************************************************
+:: Q7: How would you handle secrets management for AWS resources in your Terraform configuration?
+:: **************************************************
+:: Step 1: Use AWS Secrets Manager or SSM Parameter Store.
+aws secretsmanager create-secret --name my-secret --secret-string "value"
+:: Step 2: Reference secrets in Terraform.
+vi main.tf
+echo '
+data "aws_secretsmanager_secret" "example" {
+  name = "my-secret"
+}
+data "aws_secretsmanager_secret_version" "example" {
+  secret_id = data.aws_secretsmanager_secret.example.id
+}
+resource "aws_instance" "example" {
+  user_data = data.aws_secretsmanager_secret_version.example.secret_string
+}
+' >> main.tf
+
+:: **************************************************
+:: Q8: How would you configure auto-scaling for an application on AWS?
+:: **************************************************
+:: Step 1: Define an Auto Scaling Group in Terraform.
+vi main.tf
+echo '
+resource "aws_autoscaling_group" "example" {
+  desired_capacity = 2
+  max_size         = 5
+  min_size         = 1
+  launch_configuration = aws_launch_configuration.example.id
+}
+resource "aws_launch_configuration" "example" {
+  image_id      = "ami-12345678"
+  instance_type = "t2.micro"
+}
+' >> main.tf
+:: Step 2: Apply the configuration.
+terraform apply
+
+:: **************************************************
+:: Q9: How can you optimize costs for AWS resources managed by Terraform?
+:: **************************************************
+:: Step 1: Use Reserved or Spot Instances.
+aws ec2 purchase-reserved-instances-offering --offering-id <id>
+:: Step 2: Turn off unused resources with Terraform.
+terraform destroy -target=aws_instance.unused
+:: Step 3: Implement resource tags to track costs.
+vi main.tf
+echo '
+tags = {
+  "Environment" = "Production"
+  "CostCenter"  = "12345"
+}
+' >> main.tf
+
+:: **************************************************
+:: Q10: How can you implement a disaster recovery plan for AWS using Terraform?
+:: **************************************************
+:: Step 1: Define cross-region backups for critical resources.
+aws rds modify-db-instance --backup-retention-period 7 --region us-west-2
+:: Step 2: Use Terraform to replicate infrastructure in another region.
+vi main.tf
+echo '
+provider "aws" {
+  region = "us-east-1"
+}
+
+provider "aws" {
+  alias  = "dr"
+  region = "us-west-2"
+}
+' >> main.tf
+:: Step 3: Automate failover using Route 53 health checks.
+
+:: **************************************************
+:: Q11: What methods would you use to document your Terraform configurations?
+:: **************************************************
+:: Step 1: Add comments to Terraform files.
+# This is a VPC configuration
+resource "aws_vpc" "example" { ... }
+:: Step 2: Generate documentation using `terraform-docs`.
+terraform-docs markdown . > README.md
+
+:: **************************************************
+:: Q12: How do you manage dependencies between AWS resources?
+:: **************************************************
+:: Step 1: Use implicit dependencies in Terraform.
+resource "aws_instance" "example" {
+  subnet_id = aws_subnet.example.id
+}
+:: Step 2: Explicitly define dependencies if needed.
+depends_on = [aws_vpc.example]
+
+:: **************************************************
+:: Q13: How do you use Terraform modules to create reusable components?
+:: **************************************************
+:: Step 1: Create a module for VPC.
+mkdir modules/vpc && vi modules/vpc/main.tf
+echo '
+resource "aws_vpc" "example" { ... }
+' > modules/vpc/main.tf
+:: Step 2: Use the module in the main configuration.
+module "vpc" {
+  source = "./modules/vpc"
+}
+
+:: **************************************************
+:: Q14: How do you set up monitoring and logging for AWS resources?
+:: **************************************************
+:: Step 1: Enable CloudWatch metrics and logs in Terraform.
+vi main.tf
+echo '
+resource "aws_cloudwatch_log_group" "example" {
+  name = "/aws/lambda/example"
+}
+' >> main.tf
+
+:: **************************************************
+:: Q15: How do you test Terraform configurations before deploying?
+:: **************************************************
+:: Step 1: Validate the configuration syntax.
+terraform validate
+:: Step 2: Run a dry-run with `terraform plan`.
+terraform plan
+:: Step 3: Use tools like `terratest` for automated testing.
+
+:: **************************************************
+:: All Questions Answered in CMD Style
+:: **************************************************
