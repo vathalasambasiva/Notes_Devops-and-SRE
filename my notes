@@ -79,3 +79,9 @@ When to Use Each:
 
 Declarative Pipelines: Cleaner, easier to understand, and ideal for most projects.
 Scripted Pipelines: More flexible but harder to maintain, suitable for complex requirement
+
+
+
+Terraform State Files: Track infrastructure resources managed by Terraform locally.
+
+Remote Backends: Store state files in a central location (e.g., S3) to enable team collaboration and state locking.
