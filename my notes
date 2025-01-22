@@ -85,3 +85,24 @@ Scripted Pipelines: More flexible but harder to maintain, suitable for complex r
 Terraform State Files: Track infrastructure resources managed by Terraform locally.
 
 Remote Backends: Store state files in a central location (e.g., S3) to enable team collaboration and state locking.
+
+
+
+
+
+
+Feature	Purpose
+SNS	Send notifications or messages to multiple subscribers simultaneously.
+SQS	Queue messages for asynchronous processing.
+NAT Gateway	Allows private subnet instances to access the internet securely.
+
+
+Service	Purpose	Use Case
+EC2	Virtual servers in the cloud	Hosting applications, databases, websites
+S3	Scalable object storage	Storing static files, backups, datasets
+EFS	Shared file storage for EC2	Distributed applications needing shared data
+IAM	Manage user access and permissions	Secure access to AWS services
+VPC	Isolated network for your AWS resources	Custom networking for applications
+CloudFront	CDN for fast content delivery	Speed up websites, APIs, or streaming content
+VPC Peering	Connect two VPCs privately	Secure communication between VPCs
+NAT Gateway	Allow private subnet instances to access the internet securely	Update servers, fetch resources securely
