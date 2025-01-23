@@ -120,3 +120,10 @@ Stateless Systems:
 
 For scalable and distributed applications (e.g., APIs, serverless functions).
 When stateless interactions are sufficient or preferred.
+
+
+
+Use Persistent Volumes when you need to store data persistently across pod restarts or reschedules.
+Use Persistent Volume Claims to request and consume storage resources dynamically, allowing your applications to use the storage without worrying about the underlying hardware.
+
+Ingress in Kubernetes allows you to manage external access to your services, with features like routing and SSL termination.
