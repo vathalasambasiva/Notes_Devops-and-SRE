@@ -2,3 +2,35 @@ If a specific slave is required → Jenkins will wait for it to be restored.
 If any node can execute → Master will run it (if allowed).
 If no nodes are available → Job stays in the queue until resources are available.
 
+
+
+
+terraform 
+==========
+
+Option 1: Using AWS CLI (Recommended)
+Install AWS CLI:
+bash
+Copy
+Edit
+sudo apt install awscli   # Ubuntu
+brew install awscli       # macOS
+Configure AWS CLI with your credentials:
+bash
+Copy
+Edit
+aws configure
+Enter:
+AWS Access Key ID: AKIAXXXXXXXXXXXX
+AWS Secret Access Key: xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Default Region: us-east-1 (or your region)
+Output format: json (or leave default)
+Option 2: Using Environment Variables
+Set credentials as environment variables:
+
+bash
+Copy
+Edit
+export AWS_ACCESS_KEY_ID="AKIAXXXXXXXXXXXX"
+export AWS_SECRET_ACCESS_KEY="xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+export AWS_DEFAULT_REGION="us-east-1"
