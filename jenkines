@@ -1,0 +1,4 @@
+If a specific slave is required → Jenkins will wait for it to be restored.
+If any node can execute → Master will run it (if allowed).
+If no nodes are available → Job stays in the queue until resources are available.
+
