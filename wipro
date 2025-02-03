@@ -172,3 +172,133 @@ A:
 -------------------------------------------------------------
 
 (End of Document)
+
+
+
+========================================================================
+
+# PDI - First Round Answers:
+
+1. # What are your roles and responsibilities?
+   # As a full-stack Java engineer with DevOps knowledge, my responsibilities include:
+   # - Application support for Java-based applications
+   # - Debugging, monitoring, and fixing bugs
+   # - Writing and maintaining scripts for data loads
+   # - Performing server health checks
+
+2. # How do you integrate Ansible to deploy your application?
+   ansible-playbook deploy_application.yml
+
+3. # Where do you store statefile and write script for backend DynamoDB and S3?
+   terraform {
+     backend "s3" {
+       bucket = "my-terraform-state"
+       key    = "path/to/my/key"
+       region = "us-west-2"
+     }
+   }
+
+4. # I have created 5 instances with Terraform, manually deleted two resources. How many resources will Terraform create once we apply Terraform?
+   terraform apply # Terraform will recreate the two resources that were manually deleted.
+
+5. # We have created a Terraform resources file to create 50 resources but due to some issues it failed to create all resources. What happens when we reapply? Will it create additional resources or recreate from the start?
+   terraform apply # Terraform will only create the missing resources and will not recreate the already existing ones.
+
+6. # What is taint in Terraform?
+   terraform taint <resource_name> # Taint marks a resource for recreation during the next apply.
+
+7. # How can you bring existing resources to manage with Terraform?
+   terraform import <resource_type>.<resource_name> <resource_id>
+
+8. # How do you run an application while recreating an instance?
+   terraform apply -auto-approve # Terraform lifecycle hooks can help manage application lifecycle.
+
+9. # How can you check the application status creating along with Terraform?
+   terraform apply && tail -f /var/log/application.log # Use monitoring tools like CloudWatch, Datadog, or check application logs.
+
+10. # Write a Jenkins pipeline used in your current project.
+    pipeline {
+      agent any
+      stages {
+        stage('Build') {
+          steps {
+            sh 'mvn clean install'
+          }
+        }
+        stage('Deploy') {
+          steps {
+            sh 'ansible-playbook deploy.yml'
+          }
+        }
+      }
+    }
+
+11. # How do you secure Jenkins?
+    # - Use HTTPS for Jenkins
+    # - Use Jenkins credentials for secret management
+    # - Enable authentication via OAuth, LDAP, or SSO
+    # - Use role-based access control (RBAC)
+
+12. # Write a shell script to find an error pattern in a file and send an email?
+    grep "error_pattern" /path/to/logfile | mail -s "Error found in log" user@example.com
+
+13. # Write a script to delete last 7 days old and more than 100MB files.
+    find /path/to/files -type f -mtime +7 -size +100M -exec rm -f {} \;
+
+14. # Write script to schedule a job to run backup file?
+    echo "0 2 * * * /path/to/backup_script.sh" | crontab - # Schedules a backup at 2AM daily.
+
+15. # Write a script to get back to save with timestamp?
+    cp /path/to/file /path/to/backup/file_$(date +%Y%m%d%H%M%S).bak
+
+16. # Write a script to check if the nginx service is working or not.
+    systemctl status nginx || systemctl start nginx
+
+17. # How do you troubleshoot applications running?
+    # - Check application logs: tail -f /var/log/app.log
+    # - Monitor resource usage: top, htop
+    # - Debug the application code or configuration
+
+18. # What is image pull back error and how do you troubleshoot in Kubernetes?
+    # - Error occurs when an image cannot be pulled from the registry.
+    # - Troubleshoot by checking image name, tag, registry access, and network settings.
+    kubectl describe pod <pod_name> # Check for specific error messages.
+
+19. # How is the application highly available in EKS?
+    # - Use multiple worker nodes across multiple availability zones.
+    # - Set up auto-scaling for pods and nodes.
+    # - Use load balancing with an AWS ALB.
+
+20. # Where do you deploy the load balancer front end, back end?
+    # - Front-end load balancers usually sit in front of web servers or applications.
+    # - Back-end load balancers are typically placed in front of databases or services.
+
+21. # On which layer SSL/TLS certificates are attached?
+    # SSL/TLS certificates are typically attached at the Application Layer (Layer 7) of the OSI model.
+
+22. # What is the architecture of the current project in EKS?
+    # - Multi-tier architecture with front-end services, back-end services, and a database layer.
+    # - Kubernetes-based, deployed on AWS EKS with auto-scaling and high availability.
+
+23. # How do you connect to private subnet instances?
+    # Use a Bastion host or VPN to access private subnet instances securely.
+
+24. # How do you configure an EC2 connect S3 bucket?
+    # Configure IAM roles to grant EC2 instances access to S3 buckets.
+    aws s3 cp /path/to/local/file s3://bucket-name/ # Example of using EC2 to copy files to S3.
+
+25. # What happens when you don't provide variables in Terraform files? How will it take variables?
+    # Terraform will prompt for input if variables are not provided in the configuration files or via a .tfvars file.
+    terraform apply
+
+26. # How do you override existing environment variables in Terraform?
+    terraform apply -var 'variable_name=value'
+
+27. # How do you deploy an application in EC2 Instance without Jenkins?
+    # - SSH into the EC2 instance and run commands to deploy the application.
+    # Example: ssh ec2-user@<ec2_ip> && ./deploy.sh
+
+28. # Explain how you configure Ansible to deploy an application with Jenkins?
+    # - Define playbooks for deploying the application.
+    # - Configure Jenkins to trigger the Ansible playbook for deployment.
+    # Example: ansible-playbook deploy_application.yml
