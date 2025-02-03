@@ -1,0 +1,591 @@
+# 1. Self Introduction:
+echo "Hello, my name is Vathala Sambasiva. I have been working as a Full-Stack Java Engineer, specializing in React, Java, and application support. My experience includes debugging, monitoring, and managing server health checks. I'm certified in AWS, GCP, Datadog, and have strong knowledge of DevOps practices."
+
+# 2. Check disk utilization in Linux:
+df -h
+
+# 3. Troubleshoot running processes:
+ps aux
+
+# 4. What is the /etc directory?
+# /etc is a directory that contains configuration files for the system. These files are used to configure the system’s software, network settings, and user configurations.
+
+# 5. Troubleshooting connectivity issue:
+# Check if firewall is blocking the connection
+sudo ufw status
+# Check the network status
+ifconfig
+# Test specific ports
+telnet <hostname> <port>
+
+# 6. Find a large file with error handling in shell scripting:
+find / -type f -size +100M 2>/dev/null
+
+# 7. Get the letter 'd' from your name:
+echo "Vathala Sambasiva" | grep -o 'd'
+
+# 8. Difference between softlink and hardlink:
+# Soft Link: A symbolic link that points to a file or directory. It can span across different filesystems and can be broken if the original file is deleted.
+# Hard Link: A direct reference to the inode of a file. It cannot span different filesystems, and deleting the original file doesn’t affect the hard link.
+
+# 9. Network issue troubleshooting:
+# Check for open ports
+netstat -tuln
+# Test connectivity between systems
+ping <hostname>
+# Check for DNS resolution issues
+nslookup <hostname>
+
+# 10. Find unused log files in a directory:
+find /var/log -type f -atime +30 -exec ls -l {} \;
+
+# 11. Backup log files:
+tar -czvf /path/to/backup/log_backup_$(date +\%F).tar.gz /var/log
+
+# 12. Archive logs:
+tar -czf logs_archive.tar.gz /path/to/logs
+
+# 13. Troubleshoot high CPU utilization:
+top
+# Identify resource-heavy processes
+ps aux --sort=-%cpu | head
+
+# 14. Send alerts if CPU utilization exceeds 80%:
+# Install the `sysstat` package and then use the following:
+mpstat -P ALL 1 1 | awk '$12 > 80 {print "High CPU usage: " $0}' | mail -s "CPU Alert" <your_email>
+
+# 15. Get first 1000 lines from a file:
+head -n 1000 <file_name>
+
+# 16. Troubleshoot unresponsive system:
+# Check system load
+uptime
+# Check for process lockups
+dmesg | tail -n 20
+# Check memory usage
+free -h
+
+# 17. Create a symlink:
+ln -s /path/to/original /path/to/symlink
+
+# 18. Mount and unmount commands:
+# Mounting
+mount /dev/sdX1 /mnt
+# Unmounting
+umount /mnt
+
+# 19. Enable passwordless authentication:
+ssh-keygen -t rsa
+ssh-copy-id <user>@<hostname>
+
+# 20. INODE in Linux:
+# Inodes store metadata about files such as permissions, owner, and file type. Each file has a unique inode.
+
+# 21. System not responding after restart:
+# Check dmesg logs for boot errors
+dmesg | less
+# Check disk health
+smartctl -a /dev/sda
+
+# 22. Shell scripts used in projects:
+# Example: Backup script to automate backups
+#!/bin/bash
+tar -czvf /backup/backup_$(date +\%F).tar.gz /home/user/data
+
+# 23. Shell script flow example:
+#!/bin/bash
+# 1. Check if directory exists
+if [ -d "/path/to/dir" ]; then
+  echo "Directory exists"
+else
+  echo "Directory does not exist"
+fi
+# 2. Perform backup
+tar -czvf /backup/backup.tar.gz /path/to/dir
+
+# 24. Memory management in Python:
+# Python automatically manages memory through garbage collection, but you can use `gc.collect()` to manually trigger garbage collection if necessary.
+
+# 25. Role of CI/CD in Python:
+# CI/CD automates the testing, building, and deployment of Python applications. You can use Jenkins or GitLab CI to integrate your code with cloud providers and automate deployments.
+
+# 26. Error handling in Python:
+# Use try-except blocks to catch exceptions and handle errors gracefully.
+try:
+    # risky code
+    result = 10 / 0
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+
+# 27. Deep vs shallow copy in Python:
+# Shallow copy creates a new object but does not create copies of objects within the original object. 
+# Deep copy creates a new object and recursively copies all objects within the original object.
+
+# 28. Docker Compose vs Dockerfile:
+# Docker Compose is used to define and manage multi-container Docker applications. Dockerfile is used to define the image itself.
+
+# 29. Manage sensitive data in Docker:
+# Use Docker secrets to manage sensitive data in containers.
+docker secret create <secret_name> <file_with_secret_data>
+
+# 30. Docker resource utilization (CPU and Memory):
+# Docker uses cgroups to limit CPU and memory usage. You can set limits for CPU and memory usage in the container’s configuration.
+
+# 31. Export Docker image:
+docker save -o <output_file.tar> <image_name>
+
+# 32. Docker volumes storage:
+# Docker volumes are stored under `/var/lib/docker/volumes/` on the host machine.
+
+# 33. Purpose of Docker Checkpoint:
+# Docker checkpoints allow you to save the current state of a container and restore it later, similar to suspending a virtual machine.
+
+# 34. Ensure container-1 runs before container-2 in Docker Compose:
+# Use `depends_on` in the docker-compose.yml file:
+# version: '3'
+# services:
+#   container-1:
+#     image: <image_name>
+#   container-2:
+#     image: <image_name>
+#     depends_on:
+#       - container-1
+
+# 35. Update Docker container without losing data:
+# Use Docker volumes to persist data, and update the container image:
+docker pull <new_image>
+docker stop <container_name>
+docker rm <container_name>
+docker run -v <volume_name>:/data <new_image>
+
+# 36. Troubleshoot K8s critical application failure:
+# Check pod logs:
+kubectl logs <pod_name>
+# Check pod events:
+kubectl describe pod <pod_name>
+# Check the status of services:
+kubectl get svc
+
+# 37. Monitor applications in K8s:
+# Use Kubernetes monitoring tools such as Prometheus and Grafana to monitor critical applications.
+
+# 38. Role of Kube Proxy:
+# Kube Proxy is responsible for maintaining network rules on nodes, enabling network communication to your pods.
+
+# 39. CrashLoopBackOff error troubleshooting:
+# Check pod logs:
+kubectl logs <pod_name>
+# Describe the pod to check events:
+kubectl describe pod <pod_name>
+
+# 40. Scale up resources in K8s:
+kubectl scale deployment <deployment_name> --replicas=<number_of_replicas>
+
+# 41. Rollback to previous version in K8s:
+kubectl rollout undo deployment <deployment_name>
+
+# 42. Handling high CPU/Memory usage after scaling in K8s:
+# Check the resource usage:
+kubectl top pod
+# Adjust resource requests and limits in the deployment.yaml file.
+
+# 43. Master and worker node failure in K8s:
+# If both master and worker nodes fail, the cluster will become unavailable. Worker node failure means the application will not be running.
+
+# 44. Master node failure in K8s:
+# If the master node fails, Kubernetes control plane components such as the API server, scheduler, and controller manager will be unavailable.
+
+# 45. Worker node failure in K8s:
+# Pods running on the worker node will be terminated and rescheduled to available nodes.
+
+# 46. PVC stuck in pending state:
+kubectl describe pvc <pvc_name>
+kubectl describe pod <pod_name>
+
+# 47. Troubleshooting NetworkPolicy in K8s:
+# Check the NetworkPolicy configuration:
+kubectl describe networkpolicy <policy_name>
+
+=====================================================================================================================================================
+
+# ***Birla Soft 1st Round***
+
+# 1. Setup auto scaling in EKS:
+# Use the AWS CLI or Terraform to define an Auto Scaling Group with a target tracking policy for automatic scaling.
+aws autoscaling create-auto-scaling-group --auto-scaling-group-name <group_name> --min-size 1 --max-size 10 --desired-capacity 3 --vpc-zone-identifier <subnet_id> --launch-configuration-name <launch_config_name>
+
+# 2. Provide path to Docker Hub image in a pod:
+# In the pod specification YAML file, under `spec.containers.image`, specify the Docker Hub image.
+kubectl run <pod_name> --image=docker.io/<username>/<image_name>:<tag>
+
+# 3. What is a replication controller?
+# A Replication Controller ensures that a specified number of pod replicas are running at any given time. It ensures pods are running and can scale them based on requirements.
+
+# 4. What is Terraform parallel spaces?
+# Terraform parallel spaces are used to perform concurrent actions (e.g., creating multiple resources simultaneously), improving the execution speed during provisioning.
+
+# 5. Set up multiple environments in Terraform:
+# Use workspaces in Terraform to manage multiple environments like `dev`, `staging`, and `prod`.
+terraform workspace new dev
+terraform workspace select dev
+
+# 6. What is Terraform Cloud?
+# Terraform Cloud is a SaaS offering that provides remote state management, versioning, team collaboration, and integration with VCS (Version Control Systems).
+
+# 7. Terraform lifecycle:
+# Terraform has a lifecycle that includes:
+# 1. `init` – Initializes the working directory.
+# 2. `plan` – Creates an execution plan.
+# 3. `apply` – Applies the changes.
+# 4. `destroy` – Destroys the managed infrastructure.
+
+# 8. Integrating Jenkins to deploy in AWS:
+# Use the AWS CLI in your Jenkins pipeline to interact with AWS services and deploy applications to EC2 instances or other services.
+# Example:
+# aws ec2 run-instances --image-id <ami_id> --instance-type <type>
+
+# 9. What is taint and toleration in K8s?
+# Taint: A way to mark a node to repel pods unless they have matching tolerations.
+# Toleration: A way for pods to be scheduled onto nodes with matching taints.
+
+# 10. Affinity and Anti-Affinity in K8s:
+# Affinity: Defines rules to attract pods to nodes.
+# Anti-Affinity: Ensures pods are not scheduled together on the same node.
+
+# 11. What is deployment and how to provide images from a private repo?
+# A Kubernetes deployment manages a set of identical pods and provides declarative updates.
+# To use images from a private repo, specify the `imagePullSecrets` in the deployment YAML file.
+# Example:
+# imagePullSecrets:
+#   - name: <secret_name>
+
+# 12. What is an ingress controller?
+# An Ingress Controller manages external access to services within a Kubernetes cluster, typically HTTP.
+
+# 13. Docker network types and creation:
+# Docker supports bridge, host, overlay, and macvlan networks. To create a network:
+docker network create <network_name>
+
+# 14. Docker volume and uses:
+# Docker volumes provide persistent storage to containers. Volumes are independent of the container lifecycle and are used to store data that needs to be shared or persisted.
+docker volume create <volume_name>
+
+# 15. Docker entry point:
+# The entry point is the command that will be executed when the container starts. It can be defined in the Dockerfile.
+ENTRYPOINT ["python", "app.py"]
+
+# 16. What is a Dockerfile?
+# A Dockerfile is a script that contains instructions to build a Docker image. It defines the environment, installation steps, and entry point for the container.
+
+# 17. Install an application while creating AWS resources through Terraform:
+resource "aws_instance" "example" {
+  ami = "ami-12345678"
+  instance_type = "t2.micro"
+  user_data = <<-EOF
+              #!/bin/bash
+              yum install -y <app_name>
+              EOF
+}
+
+==============================================================================================
+
+2nd round 
+
+
+# 1. 10.0.0.0 belongs to which class?
+# Class A (since 10.0.0.0/8 falls under the range 10.0.0.0 - 10.255.255.255)
+
+# 2. 10.0.0.30/24 – IP range:
+# Network: 10.0.0.0
+# Broadcast: 10.0.0.255
+# Usable IP range: 10.0.0.1 – 10.0.0.254
+
+# 3. Different IP classes:
+# Class A: 0.0.0.0 to 127.255.255.255
+# Class B: 128.0.0.0 to 191.255.255.255
+# Class C: 192.0.0.0 to 223.255.255.255
+
+# 4. What is VPC?
+# A Virtual Private Cloud (VPC) is a logically isolated network within AWS where you can launch AWS resources.
+
+# 5. Evaluate if a subnet is public or private:
+# A subnet is public if it has a route to the internet via an Internet Gateway.
+# Use `route table` to check for an internet route.
+
+# 6. Layers of HTTP Protocol:
+# Application, Presentation, Session, Transport, Network, Data Link, Physical.
+
+# 7. Port numbers for common protocols:
+# HTTP: 80
+# HTTPS: 443
+# SMTP: 25
+# MySQL: 3306
+
+# 8. What is a Load Balancer?
+# A Load Balancer distributes incoming network traffic across multiple servers to ensure high availability and reliability.
+
+# 9. Loopback IP Range:
+# 127.0.0.0 – 127.255.255.255 (commonly 127.0.0.1 is used)
+
+# 10. Block localhost IP in AWS:
+# Use Security Group rules to block inbound traffic from IP `127.0.0.1`.
+
+# 11. What is NACL?
+# A Network Access Control List (NACL) is used to control traffic to and from subnets in a VPC.
+
+# 12. What is an Availability Zone?
+# An Availability Zone is a data center within a region that has independent power, cooling, and networking.
+
+# 13. Availability Zones in Asia Pacific:
+# There are typically 3 availability zones in most Asia Pacific regions.
+
+# 14. Get kernel information:
+uname -r
+
+# 15. Get the flavor of the installed OS:
+# For Linux:
+cat /etc/*release
+
+# 16. Change file permissions:
+chmod 755 <file_name>
+
+# 17. Change ownership of a file:
+chown user:group <file_name>
+
+# 18. Head command:
+# `head` displays the first N lines of a file (default 10).
+head <file_name>
+
+# 19. Default permissions for a file and directory:
+# Files: 644
+# Directories: 755
+
+# 20. Get running processes:
+ps aux
+
+# 21. Get open ports in the system:
+netstat -tuln
+
+# 22. Git stages:
+# 1. `git add`: Stages files for commit.
+# 2. `git commit`: Records changes to the repository.
+# 3. `git push`: Pushes commits to a remote repository.
+
+# 23. Local repo:
+# The local repository is your local copy of the Git repository where changes are made before pushing them to a remote repo.
+
+# 24. Difference between git fetch and git pull:
+# `git fetch` downloads changes but doesn’t merge them.
+# `git pull` fetches and merges changes into the current branch.
+
+# 25. Git flow branching strategy:
+# Git flow involves specific branches for development, features, releases, and hotfixes to maintain a structured release process.
+
+# 26. AWS Policies:
+# AWS IAM policies define permissions for actions on AWS resources.
+
+# 27. Role assumption in AWS IAM:
+# IAM roles allow AWS services or users to assume specific permissions temporarily.
+
+# 28. Different types of EBS storage:
+# General Purpose (SSD), Provisioned IOPS (SSD), and Magnetic.
+
+# 29. Attach EBS volume to two EC2 instances:
+# EBS volumes can’t be attached to multiple EC2 instances simultaneously unless using EBS Multi-Attach.
+
+# 30. Error when attaching the same EBS volume to two EC2s:
+# `VolumeInUse` error will be returned.
+
+# 31. Statefile in Terraform:
+# Terraform state file holds the mapping between your configuration and the actual infrastructure resources.
+
+# 32. Meta arguments in Terraform:
+# Examples include `depends_on`, `count`, `for_each`.
+
+# 33. What happens if the statefile is deleted?
+# If the statefile is deleted, Terraform won’t be able to track infrastructure resources, and you may have to recreate resources.
+
+# 34. What is a Pod in K8s?
+# A Pod is the smallest deployable unit in Kubernetes, typically containing one or more containers.
+
+# 35. Labels and Selectors:
+# Labels are key-value pairs attached to objects. Selectors are used to filter these objects based on their labels.
+
+# 36. Write YAML for creating a Pod:
+# apiVersion: v1
+# kind: Pod
+# metadata:
+#   name: my-pod
+# spec:
+#   containers:
+#   - name: nginx
+#     image: nginx:latest
+
+# 37. Place a container in a Pod:
+# Define the container in the Pod’s spec section within the YAML configuration file.
+
+# 38. Resources Request and Limits in K8s:
+# Resource requests define the minimum amount of CPU and memory. Limits define the maximum amount a container can use.
+
+# 39. Explain CrashloopBackOff error:
+# This error indicates that a container in the pod is repeatedly crashing. It’s usually caused by application errors or configuration issues.
+
+# 40. K8s namespace:
+# A namespace provides a way to divide cluster resources between multiple users.
+
+# 41. Debug pod in K8s:
+kubectl describe pod <pod_name> --namespace=<namespace_name>
+
+# 42. Create a CronJob:
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: my-cron-job
+spec:
+  schedule: "0 5 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: my-job
+            image: my-job-image
+          restartPolicy: OnFailure
+
+======================================================================================================================================
+
+
+# ***PDI First Round***
+
+# 1. What are your roles and responsibilities?
+# As a DevOps Engineer, I am responsible for automating and managing the deployment pipelines, handling application deployment, troubleshooting issues, maintaining infrastructure, monitoring system health, and collaborating with development teams to ensure smooth operations.
+
+# 2. Integrate Ansible to deploy your application:
+# Use Ansible playbooks to automate the deployment of your application by specifying the required tasks for installing dependencies, copying files, and configuring services.
+ansible-playbook -i <inventory_file> deploy_app.yml
+
+# 3. Where do you store the statefile and write script for backend DynamoDB and S3?
+# Store Terraform state files remotely in S3 for versioning and DynamoDB for state locking to avoid conflicts in team environments.
+# Example:
+terraform {
+  backend "s3" {
+    bucket = "my-terraform-state"
+    key    = "statefile.tfstate"
+    region = "us-east-1"
+  }
+}
+
+# 4. Created 5 instances with Terraform, deleted 2 resources manually. How many resources will Terraform create once applied?
+# Terraform will recreate the 2 deleted resources as it checks the state file and identifies the difference between the actual infrastructure and the configuration.
+
+# 5. Terraform resources file to create 50 resources, but some fail. What happens on reapply?
+# Terraform will attempt to recreate the resources that failed in the previous apply. It will not recreate the entire infrastructure.
+
+# 6. What is taint in Terraform?
+# `taint` marks a resource as needing to be destroyed and recreated during the next `terraform apply`.
+terraform taint <resource_name>
+
+# 7. How can you bring existing resources to manage with Terraform?
+# Import the existing resource into Terraform's state with the `terraform import` command.
+terraform import <resource_type>.<resource_name> <resource_id>
+
+# 8. How do you run an application while recreating an instance?
+# Use `user_data` in your EC2 instance resource to run a script that installs the application on boot.
+resource "aws_instance" "example" {
+  ami = "ami-12345678"
+  instance_type = "t2.micro"
+  user_data = <<-EOF
+              #!/bin/bash
+              yum install -y <app_name>
+              EOF
+}
+
+# 9. How can you check the application status created along with Terraform?
+# Use `terraform show` to display the current state of all resources.
+terraform show
+
+# 10. Write a Jenkins pipeline used in your current project:
+pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        sh 'mvn clean install'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh 'aws ecs update-service --cluster <cluster_name> --service <service_name> --force-new-deployment'
+      }
+    }
+  }
+}
+
+# 11. How do you secure Jenkins?
+# Secure Jenkins by enabling authentication (e.g., using LDAP or other security plugins), enforcing HTTPS, and limiting permissions for different user roles.
+
+# 12. Write a shell script to find an error pattern in a file and send an email:
+grep -i "error" /path/to/logfile | mail -s "Error Log Alert" recipient@example.com
+
+# 13. Write a script to delete last 7 days old and more than 100 MB files:
+find /path/to/directory -type f -mtime +7 -size +100M -exec rm {} \;
+
+# 14. Write a script to schedule a job to run a backup file:
+echo "0 2 * * * /path/to/backup/script.sh" | crontab -
+
+# 15. Write a script to get a backup with timestamp:
+tar -czf /path/to/backup/backup_$(date +\%F).tar.gz /path/to/directory
+
+# 16. Write a script to check if the nginx service is working or not:
+if systemctl is-active --quiet nginx; then
+  echo "Nginx is running"
+else
+  echo "Nginx is not running"
+fi
+
+# 17. How do you troubleshoot applications running?
+# Troubleshoot by checking application logs, resource utilization (CPU, memory), service health, and network connectivity.
+journalctl -u <service_name> # Check logs for systemd services
+top # Check system resource usage
+kubectl logs <pod_name> # For Kubernetes applications
+
+# 18. What is image pull-back error and how do you troubleshoot in K8s?
+# An image pull-back error occurs when a container fails to pull the image from the registry. Troubleshoot by checking image name, tag, and authentication credentials in `imagePullSecrets`.
+kubectl describe pod <pod_name> # To get detailed error
+
+# 19. How is the application high available in EKS?
+# Use EKS with Auto Scaling Groups, multiple worker nodes, and Elastic Load Balancers (ELBs) for high availability. Ensure pods are distributed across multiple Availability Zones.
+
+# 20. Where do you deploy the load balancer: front-end or back-end?
+# The load balancer is typically placed between the client (front-end) and the back-end services to distribute traffic evenly.
+
+# 21. SSL/TLS certificates are attached to which layer?
+# SSL/TLS certificates are attached to the Transport Layer (Layer 4 in the OSI model), between the client and server, ensuring encrypted communication.
+
+# 22. What is the architecture of the current project in EKS?
+# The architecture consists of multiple microservices deployed in EKS pods with Kubernetes managing the containers, networking, and scaling. An Application Load Balancer (ALB) handles traffic routing.
+
+# 23. How do you connect to private subnet instances?
+# Use a VPN, bastion host, or direct connect to access private subnet instances in AWS.
+
+# 24. How do you configure an EC2 connect S3 bucket?
+# You can use the `aws s3 cp` command to copy files from an EC2 instance to an S3 bucket or use IAM roles to enable the instance to access the S3 bucket.
+aws s3 cp /path/to/file s3://bucket-name/
+
+# 25. What happens when you don't provide variables in Terraform files? How will it take variables?
+# If variables are not provided, Terraform will use the default values specified in the configuration. If no default is defined, it will prompt for input during `terraform apply`.
+
+# 26. How do you override existing environment variables in Terraform?
+# Override by setting values in the `terraform.tfvars` file or using the `-var` flag during the `terraform apply` command.
+terraform apply -var "key=value"
+
+# 27. How do you deploy an application in EC2 Instance without Jenkins?
+# Manually SSH into the EC2 instance, copy the application files, and start the application or use a script to automate this process.
+
+# 28. Explain how you configure Ansible to deploy an application with Jenkins:
+# Use Ansible playbooks to automate tasks, and configure Jenkins to run these playbooks using the Ansible plugin during the build or deployment stages.
+
+
+
+
+
