@@ -1,0 +1,174 @@
+Wipro: Round-2 Interview Questions
+====================================
+
+1. Self Introduction
+---------------------
+Q: Give me your Self Introduction  
+A:  
+I have [X years] of experience in [your domain, e.g., DevOps, Linux, Cloud, etc.].  
+My expertise includes:  
+- [Key skills, e.g., Linux administration, shell scripting, Docker, Kubernetes, CI/CD, etc.]  
+- Worked on [projects/technologies], focusing on [specific goals].  
+
+-------------------------------------------------------------
+
+2. Linux Questions
+---------------------
+Q: How will you check disk utilization in Linux?  
+A:
+Command:
+    df -h  
+    -h: Displays sizes in a human-readable format (KB, MB, GB).  
+
+Q: How will you troubleshoot running processes?  
+A:
+Commands:
+    top        # Real-time system statistics  
+    ps aux     # Lists all running processes  
+    htop       # Interactive process viewer  
+
+Example:
+    ps aux | grep <process_name>  
+
+Q: What is the /etc directory?  
+A:
+    The /etc directory contains configuration files for the system and applications.  
+    Examples:  
+    - /etc/passwd: User account information  
+    - /etc/ssh/sshd_config: SSH server configuration  
+
+Q: I can ping a machine but cannot connect. How will you troubleshoot it?  
+A:
+Commands:
+    systemctl status <service_name>  # Check service status  
+    sudo ufw status                  # Check firewall rules  
+    telnet <IP> <PORT>                # Verify port connectivity  
+
+Q: How will you create a backup for all logs?  
+A:
+Command:
+    tar -czvf logs_backup.tar.gz /path/to/logs  
+    -c: Create a new archive  
+    -z: Compress using gzip  
+    -v: Verbose output  
+    -f: Specify the archive file name  
+
+Q: If your CPU utilization is very high, how will you troubleshoot it?  
+A:
+Commands:
+    top                     # Check CPU usage  
+    ps aux --sort=-%cpu     # List processes sorted by CPU usage  
+
+-------------------------------------------------------------
+
+3. Shell Scripting Questions
+-----------------------------
+Q: How to find large files using shell scripting with error handling?  
+A:
+Script:
+    #!/bin/bash
+    DIR="/path/to/search"
+    SIZE="+100M"
+
+    if [ ! -d "$DIR" ]; then
+      echo "Error: Directory $DIR does not exist."
+      exit 1
+    fi
+
+    find "$DIR" -type f -size "$SIZE" -exec ls -lh {} \; 2>/dev/null
+    if [ $? -ne 0 ]; then
+      echo "Error: Failed to find files."
+    fi
+
+Q: Explain the exact command to get the letter 'd' in your name.  
+A:
+Command:
+    echo "YourName" | grep -o 'd'  
+
+-------------------------------------------------------------
+
+4. Docker Questions
+---------------------
+Q: What is Docker Compose, and how is it different from a Dockerfile?  
+A:
+    Dockerfile: Defines a single container.  
+    Docker Compose: Defines multi-container applications.  
+
+Q: How will you ensure container-1 runs before container-2 in Docker Compose?  
+A:
+docker-compose.yml:
+    container-2:
+      depends_on:
+        - container-1
+
+Q: How to manage sensitive data like passwords in Docker?  
+A:
+    Use Docker secrets or environment variables.  
+
+Q: What is the command to export a Docker image?  
+A:
+Command:
+    docker save -o image.tar <image_name>  
+
+-------------------------------------------------------------
+
+5. Kubernetes (K8s) Questions
+------------------------------
+Q: If a pod is stuck in CrashLoopBackOff, how do you troubleshoot it?  
+A:
+Commands:
+    kubectl logs <pod_name> --previous  # Check logs  
+    kubectl describe pod <pod_name>     # Describe the pod  
+
+Q: How do you scale a deployment in Kubernetes?  
+A:
+Command:
+    kubectl scale deployment <deployment_name> --replicas=<number>
+
+Q: Suppose you deployed a new version of an application, but users are experiencing issues. How do you roll back to the previous version?  
+A:
+Command:
+    kubectl rollout undo deployment <deployment_name>
+
+Q: If worker nodes fail, what will happen?  
+A:
+    - Pods on that node will be rescheduled.  
+
+Q: If your application using PVC is stuck in the pending state, how would you troubleshoot it?  
+A:
+Commands:
+    kubectl describe pvc <pvc_name>  # Check storage class and available storage  
+
+-------------------------------------------------------------
+
+6. Python Questions
+---------------------
+Q: How will you handle memory management in Python?  
+A:
+    Use garbage collection:  
+
+Python:
+    import gc  
+    gc.collect()  
+
+Q: Can you explain the role of CI/CD, and how would you do it using Python?  
+A:
+    - CI/CD automates building, testing, and deploying applications.  
+    - Use Jenkins or GitLab CI/CD with Python scripts for automation.  
+
+Q: Explain how you would do error handling in Python.  
+A:
+Python:
+    try:
+        # Code
+    except Exception as e:
+        print(f"Error: {e}")
+
+Q: Can you tell me what is the deep and shallow copy in Python?  
+A:
+    - Shallow copy: Copies only the top-level object.  
+    - Deep copy: Copies all nested objects.  
+
+-------------------------------------------------------------
+
+(End of Document)
