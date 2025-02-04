@@ -1,0 +1,27 @@
+------------------------------------------------------
+SLI (Service Level Indicator)
+------------------------------------------------------
+Definition: A metric that measures the actual performance of a service.
+Example: 99.95% uptime in the last 30 days.
+------------------------------------------------------
+
+
+
+
+------------------------------------------------------
+SLO (Service Level Objective)
+------------------------------------------------------
+Definition: A target value for an SLI, setting an expected level of service.
+Example: 99.9% uptime target.
+------------------------------------------------------
+
+
+
+
+
+------------------------------------------------------
+SLA (Service Level Agreement)
+------------------------------------------------------
+Definition: A legal agreement with penalties if service levels are not met.
+Example: 99.9% uptime, else refund.
+------------------------------------------------------
