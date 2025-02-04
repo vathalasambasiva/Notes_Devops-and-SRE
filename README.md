@@ -1,1 +1,0 @@
-# Notes_Devops-and-SRE
