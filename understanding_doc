@@ -1,0 +1,32 @@
+✅ Deployment → Ensures that the application runs in multiple pods (replicas) for high availability and scaling.
+✅ Service → Provides a stable way to access the application, even if pods get restarted or replaced
+==========================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 3  # Ensures 3 pods are running
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: my-app-container
+          image: my-app-image:latest
+          ports:
+            - containerPort: 8080
+==================================================
+
+
+
+Action	Command
+Apply a Deployment	kubectl apply -f deployment.yaml
+Check Rollout Status	kubectl rollout status deployment/<deployment-name>
+View Rollout History	kubectl rollout history deployment/<deployment-name>
+Rollback to Previous	kubectl rollout undo deployment/<deployment-name>
+Rollback to Revision	kubectl rollout undo deployment/<deployment-name> --to-revision=<num>
