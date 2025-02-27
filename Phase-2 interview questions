@@ -1,0 +1,209 @@
+===============================================
+# Infosys Interview Questions and Answers
+==============================================
+
+## 1. Introduce yourself
+
+echo "My name is Vathala Sambasiva. I have been working as a Full-Stack Java Engineer with experience in application support and DevOps-related tasks. I have expertise in technologies like Java, React, Docker, Kubernetes, Terraform, and various monitoring tools such as Prometheus and Grafana. I am also certified in AWS, GCP, Datadog, and DevOps. My daily responsibilities include debugging issues, managing CI/CD pipelines, monitoring system health, and automating deployments."
+
+## 2. Git commands used in day-to-day activities
+
+git clone <repository_url>
+git pull origin <branch>
+git fetch
+git merge <branch>
+git checkout -b <new_branch>
+git commit -m "Commit message"
+git push origin <branch>
+git rebase <branch>
+git log --oneline
+
+## 3. Sample Dockerfile
+
+cat <<EOF > Dockerfile
+FROM openjdk:11
+COPY app.jar /usr/src/app/app.jar
+WORKDIR /usr/src/app
+CMD ["java", "-jar", "app.jar"]
+EOF
+
+## 4. Sample Terraform resource file
+
+cat <<EOF > main.tf
+resource "aws_instance" "example" {
+  count = 5
+  ami           = "ami-0abcdef1234567890"
+  instance_type = "t2.micro"
+  tags = {
+    Name = "TerraformVM-${count.index}"
+  }
+}
+EOF
+
+## 5. Difference between `git rebase` and `git merge`
+
+echo "git merge: Combines branches by creating a merge commit, keeping history."
+echo "git rebase: Moves commits on top of another branch, keeping history linear."
+
+## 6. Difference between CMD and ENTRYPOINT
+
+echo "CMD: Provides default commands, but can be overridden."
+echo "ENTRYPOINT: Defines executable commands that cannot be overridden."
+
+## 7. Prometheus and Grafana
+
+echo "Prometheus: Used for monitoring metrics, pulling data via a pull-based model."
+echo "Grafana: A visualization tool for Prometheus data, offering dashboards."
+
+## 8. Approach if `pod.yaml` fails
+
+kubectl describe pod <pod-name>
+kubectl logs <pod-name>
+kubectl get events
+
+## 9. Blue-Green Deployment Strategy
+
+echo "A technique where two identical environments (Blue and Green) exist. The new version is deployed to Green, and once verified, traffic is switched from Blue to Green."
+
+## 10. Kubernetes Architecture
+
+echo "- Master Node: API Server, Controller Manager, Scheduler, etcd."
+echo "- Worker Node: Kubelet, Kube-Proxy, Pods with containers."
+
+## 11. Kubernetes Commands
+
+kubectl get pods
+kubectl describe pod <pod-name>
+kubectl logs <pod-name>
+kubectl apply -f <file.yaml>
+kubectl delete pod <pod-name>
+
+## 12. Application crash debugging when unable to enter pod
+
+kubectl get pods --all-namespaces
+kubectl describe pod <pod-name>
+kubectl logs <pod-name> --previous
+
+## 13. Project Pipeline Explanation
+
+echo "Code Commit → CI/CD Pipeline → Terraform Provisioning → Docker Build → Kubernetes Deployment → Monitoring."
+
+## 14. Production Deployment Activity
+
+echo "Yes, I have worked on production deployments ensuring zero downtime."
+
+## 15. Deployment Frequency in Current Project
+
+echo "We deploy to production on a bi-weekly basis following a blue-green deployment model."
+
+
+=====================================================
+# Accenture Interview Questions and Answers
+=====================================================
+
+
+## 1. Tell me about yourself & day-to-day activities
+
+echo "My name is Vathala Sambasiva. I work as a Full-Stack Java Engineer handling application support and DevOps operations. My role involves debugging issues, monitoring system health, managing CI/CD pipelines, and automating deployments."
+
+## 2. Terraform script to create 5 VMs
+
+cat main.tf
+
+## 3. Branching Strategy Used
+
+echo "We follow GitFlow: feature branches for new development, develop branch for testing, main/master for production."
+
+## 4. Sample Dockerfile & Explanation
+
+cat Dockerfile
+
+## 5. Difference between CMD & ENTRYPOINT
+
+echo "CMD: Provides default commands, but can be overridden."
+echo "ENTRYPOINT: Defines executable commands that cannot be overridden."
+
+## 6. Terraform in Docker & Writing Dockerfile
+
+cat <<EOF > Dockerfile
+FROM hashicorp/terraform
+COPY main.tf /workspace/
+WORKDIR /workspace
+ENTRYPOINT ["terraform"]
+EOF
+
+## 7. Docker for Linux vs Windows
+
+echo "Linux Containers: Use kernel features like namespaces."
+echo "Windows Containers: Run on Windows kernel."
+
+## 8. Kubernetes Architecture
+
+echo "- Master Node: API Server, Controller Manager, Scheduler, etcd."
+echo "- Worker Node: Kubelet, Kube-Proxy, Pods with containers."
+
+## 9. Bash script for remote backup of files
+
+cat <<EOF > backup.sh
+#!/bin/bash
+rsync -avz /source/dir user@remote_host:/backup/dir/
+EOF
+chmod +x backup.sh
+
+## 10. Git Commands & `git fetch` vs `git pull`
+
+echo "git fetch: Fetches latest changes without merging."
+echo "git pull: Fetches and merges remote changes."
+
+## 11. Kubernetes & Jenkins Scenario Questions
+
+echo "(Scenario-based explanations as per troubleshooting steps.)"
+
+## 12. Securing Terraform State Files in AWS
+
+echo "Store in S3 with versioning and lock state with DynamoDB."
+
+## 13. Deploying Applications on ECS Fargate and EKS
+
+echo "ECS Fargate: Serverless container deployment."
+echo "EKS: Managed Kubernetes service."
+
+## 14. Running Multiple Tasks in Ansible Playbook
+
+cat <<EOF > playbook.yml
+---
+- hosts: servers
+  tasks:
+    - name: Install Apache
+      yum:
+        name: httpd
+        state: present
+EOF
+
+## 15. Role of Ansible in Monitoring
+
+echo "Automates installation of monitoring agents, configures Prometheus alerts."
+
+## 16. Finding Vulnerabilities in SonarQube
+
+echo "SonarQube performs static code analysis and reports vulnerabilities in codebase."
+
+## 17. Monitoring Kubernetes Logs
+
+kubectl logs -f <pod-name>
+kubectl get events --all-namespaces
+
+## 18. Prometheus & CloudWatch Integration
+
+echo "Prometheus scrapes metrics; CloudWatch provides AWS-level monitoring."
+
+## 19. Recovering Lost Git Rebase Commits
+
+git reflog
+
+## 20. `git rebase` vs `git merge`
+
+echo "git merge: Combines branches by creating a merge commit, keeping history."
+echo "git rebase: Moves commits on top of another branch, keeping history linear."
+```
+
