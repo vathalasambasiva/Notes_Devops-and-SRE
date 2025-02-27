@@ -207,3 +207,20 @@ echo "git merge: Combines branches by creating a merge commit, keeping history."
 echo "git rebase: Moves commits on top of another branch, keeping history linear."
 ```
 
+
+
+
+
+Branches in Git Flow:
+main: Contains the stable production-ready code.
+develop: Integrates features for the next release.
+feature/*: Used for developing individual features.
+release/*: Prepares new features for production and allows final adjustments.
+hotfix/*: Used for urgent fixes to production code.
+
+
+Branches in GitLab Flow:
+main: Contains production-ready code.
+feature/*: For new feature development.
+release/*: For preparing a new version.
+production: Represents the live production environment.
