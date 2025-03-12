@@ -44,3 +44,159 @@ Kubernetes Architecture
 |  |     Ingress        |   |      Egress         |               |
 |  +------------------+   +-------------------+               |
 +-------------------------------------------------------------+
+
+
+
+
+
+
+
+
+Kubernetes Architecture
+========================
+
+                          +----------------------------+
+                          |         Master Node         |
+                          |----------------------------|
+                          | API Server  | etcd          |
+                          | Scheduler   | Controller    |
+                          +----------------------------+
+                                     |   |   |
+                                     |   |   |
+          +--------------------------+   |   +------------------------+
+          |                              |                            |
++---------------------+    +---------------------+    +---------------------+
+|      Worker Node 1   |    |      Worker Node 2   |    |      Worker Node 3   |
+|---------------------|    |---------------------|    |---------------------|
+| Kubelet  | Kube Proxy|    | Kubelet  | Kube Proxy|    | Kubelet  | Kube Proxy|
+| Runtime  |            |    | Runtime  |            |    | Runtime  |            |
+|---------------------|    |---------------------|    |---------------------|
+|       Pods            |    |       Pods            |    |       Pods            |
+|  +--------+ +--------+|    |  +--------+ +--------+|    |  +--------+ +--------+|
+|  |  Pod 1  | |  Pod 2  |    |  |  Pod 3  | |  Pod 4  |    |  |  Pod 5  | |  Pod 6  |
+|  +--------+ +--------+|    |  +--------+ +--------+|    |  +--------+ +--------+|
++---------------------+    +---------------------+    +---------------------+
+
+Networking
+==========
+- NodePort: Exposes services on each Node’s IP.
+- ClusterIP: Exposes services internally within the cluster.
+- LoadBalancer: Exposes services externally using a cloud provider.
+
+Other Components
+=================
+- Namespace: Isolates groups of resources within the cluster.
+- ConfigMaps: Manages configuration data for your applications.
+- Ingress: Manages HTTP/HTTPS traffic to services within the cluster.
+- Egress: Controls outbound traffic from pods.
+
+
+
+Explanation of Key Components
+
+1. Cluster
+==========
+A Kubernetes Cluster is the entire system that contains:
+Master Nodes (for control and management)
+Worker Nodes (for running application workloads)
+Networking components like NodePort, ClusterIP, and LoadBalancer
+Resources like ConfigMaps, Secrets, Ingress, and Egress.
+
+2. Master Node
+==============
+Controls and manages the Kubernetes cluster.
+Key Components:
+API Server: The entry point for all REST commands sent to the cluster.
+etcd: A distributed key-value store that holds cluster data.
+Scheduler: Assigns pods to worker nodes.
+Controller Manager: Ensures desired state is maintained (e.g., restarting pods if they fail).
+
+3. Worker Node
+==============
+Executes the containerized applications.
+Key Components:
+Kubelet: Communicates with the master node and ensures pods are running.
+Kube Proxy: Manages networking within and outside the cluster.
+Container Runtime: Runs containers inside pods (e.g., Docker, containerd).
+
+4. Pods
+=======
+The smallest deployable unit in Kubernetes.
+Each pod can contain one or more containers sharing:
+Networking (same IP address)
+Storage Volumes
+
+5. Networking
+=============
+NodePort: Exposes services on each node’s IP at a static port.
+ClusterIP: Exposes services internally within the cluster (default service type).
+LoadBalancer: Exposes services externally using a cloud provider’s load balancer.
+
+6. Other Components
+===================
+Namespaces: Logical separation for different environments (e.g., Dev, QA, Prod).
+ConfigMaps: Stores non-sensitive configuration data for pods.
+Secrets: Stores sensitive information like passwords securely.
+Ingress: Routes HTTP/HTTPS traffic into the cluster.
+Egress: Manages outbound traffic from pods to external system
+
+
+✅ Cluster → The entire Kubernetes system that includes Master Nodes, Worker Nodes, and other resources.
+
+✅ Node → A machine (physical or virtual) inside the cluster.
+
+A Worker Node runs application workloads.
+Each Worker Node contains one or more Pods.
+✅ Pod → The smallest deployable unit in Kubernetes.
+
+Each Pod can contain one or more containers that share networking and storage.
+🔎 Key Clarification
+A Node is not a container itself; it’s a machine that runs Pods (which hold containers).
+A Pod is designed to run closely related containers (like a main app and its sidecar for logging or monitoring).
+Example:
+
+Cluster → Contains 3 Worker Nodes.
+Worker Node 1 → Has 2 Pods.
+Pod 1 → Contains 3 Containers (e.g., App, Logger, and Sidecar).
+
+
+=====================================================================================================
+
+Namespace in Kubernetes – Clear Understanding
+What is a Namespace?
+A Namespace in Kubernetes is a way to logically divide a cluster into multiple virtual clusters. It is useful when you have multiple teams or applications running in the same Kubernetes cluster and need to keep resources organized.
+
+Why Do We Need Namespaces?
+Isolation: Different teams or environments (Dev, UAT, Prod) can work independently.
+Resource Management: We can allocate specific CPU, memory, and storage limits per namespace.
+Avoid Name Conflicts: Multiple applications can have the same resource names (e.g., Pods, Services) in different namespaces.
+Access Control: Different teams can have different permissions within their namespaces.
+How Namespaces Work
+Kubernetes starts with a default namespace, where all resources are created if no namespace is specified.
+Other built-in namespaces:
+kube-system: System-related resources (like CoreDNS).
+kube-public: Public resources accessible to all users.
+kube-node-lease: Helps in node heartbeats.
+You can create custom namespaces for better organization.
+
+
+kubectl create namespace UAT
+kubectl get namespaces  # Verify the namespace is created
+kubectl apply -f uat-namespace.yaml
+kubectl get namespaces  # Verify
+kubectl apply -f uat-deployment.yaml
+kubectl get pods -n UAT  # Verify Pods
+
+
+kubectl get all -n UAT      ------ kubectl get all -n UAT
+
+
+kubectl logs -n UAT -l app=uat-app  ----  Check Logs
+
+curl http://uat.myapp.com    ----    Access Application
+
+
+kubectl delete namespace UAT    --- 
+  
+
+
