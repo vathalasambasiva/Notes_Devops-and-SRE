@@ -1,3 +1,9 @@
+how you get system info using promethues
+"To gather system information like CPU usage, we configure Prometheus to scrape metrics using node_exporter, which runs on the target system. This data is then visualized in Grafana for better monitoring and alerting."
+
+
+
+
 Kubernetes Architecture
 ========================
 
