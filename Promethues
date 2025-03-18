@@ -126,5 +126,125 @@ Secure Prometheus with authentication and HTTPS.
 Regularly review and refine alert rules to reduce noise.
 
 
+==========================================================================
+
+once we add micro meter automatically add the telemetry to taht project we will get those all cpu and memory all deatils oin that system based on micrometer  ?
+
+Yes, once you integrate Micrometer with Spring Boot Actuator, you will automatically start collecting key system-level and application-level metrics without writing custom code.
+
+Steps to Enable Automatic Metrics Collection
+
+Step 1: Add Dependencies
+
+Add these dependencies in your pom.xml (for Maven) or build.gradle (for Gradle).
+
+Maven (pom.xml)
+
+xml
+Copy
+Edit
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>io.micrometer</groupId>
+    <artifactId>micrometer-registry-prometheus</artifactId>
+</dependency>
+
+Step 2: Configure Actuator in application.yml
+
+Add these configurations to expose metrics endpoints:
+
+yaml
+Copy
+Edit
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+Step 3: Run the Application and Access Metrics
+
+Start your Spring Boot application.
+Visit the Prometheus metrics endpoint:
+bash
+Copy
+Edit
+http://localhost:8080/actuator/prometheus
+You'll see metrics like this:
+
+bash
+Copy
+Edit
+# HELP jvm_memory_used_bytes The amount of used memory
+# TYPE jvm_memory_used_bytes gauge
+jvm_memory_used_bytes{area="heap",id="PS Old Gen",} 1.572864E7
+jvm_memory_used_bytes{area="nonheap",id="Metaspace",} 7.536576E7
+
+# HELP process_cpu_usage The CPU usage of the process
+# TYPE process_cpu_usage gauge
+process_cpu_usage 0.022
+
+# HELP system_cpu_usage The system CPU usage
+# TYPE system_cpu_usage gauge
+system_cpu_usage 0.15
+
+Step 4: Visualize in Prometheus and Grafana (Optional but Recommended)
+
+✅ Install Prometheus and Grafana for enhanced visualization.
+✅ In Prometheus, add this scrape config in prometheus.yml:
+
+yaml
+Copy
+Edit
+scrape_configs:
+  - job_name: 'spring-boot-app'
+    static_configs:
+      - targets: ['localhost:8080']
+✅ Access Prometheus at http://localhost:9090 and query for metrics like:
+
+nginx
+Copy
+Edit
+system_cpu_usage
+jvm_memory_used_bytes
+http_server_requests_count
+
+Step 5: Optional - Add Custom Metrics
+
+While Micrometer handles most metrics automatically, you can also add custom business metrics like:
+
+Number of user logins
+File uploads
+API request counts by endpoint
+Example:
+
+java
+Copy
+Edit
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Counter;
+import org.springframework.stereotype.Component;
+
+@Component
+public class CustomMetrics {
+
+    private final Counter customCounter;
+
+    public CustomMetrics(MeterRegistry meterRegistry) {
+        this.customCounter = meterRegistry.counter("custom.metric.count");
+    }
+
+    public void incrementCounter() {
+        customCounter.increment();
+    }
+}
 
 
