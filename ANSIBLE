@@ -13,6 +13,8 @@ ansible all -i inventory -m apt -a "name=nginx state=present"  # For Debian/Ubun
 
 ansible all -i inventory -m copy -a "src=/path/to/local/file dest=/path/to/remote/file"
 
+ansible-playbook site.yml -e "env=dev"
+ansible-playbook -i inventories/dev/hosts site.yml
 
 ---------------------------------------------------------------
 
