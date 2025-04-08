@@ -5,6 +5,16 @@ ansible-playbook your_playbook.yml --syntax-check
 ansible-playbook your_playbook.yml --check
 You can simulate execution without making changes:  --  This is helpful to see what would happen without actually running it.
 
+---------------------------------------------------------------
+
+ansible all -i inventory -m command -a "df -h"
+ansible all -i inventory -m apt -a "name=nginx state=present"  # For Debian/Ubuntu
+
+
+ansible all -i inventory -m copy -a "src=/path/to/local/file dest=/path/to/remote/file"
+
+
+---------------------------------------------------------------
 
 
 ansible-playbook -i inventory.ini install_nginx.yml
@@ -13,6 +23,116 @@ inventory.ini -- this file is contain the inventory host deatils
 install_nginx.yml -- this is actual tasks and what to do in server
 
 
+Verbosity Levels:
+
+-v → basic extra info
+-vv → more detailed
+-vvv → very detailed (used often for debugging)
+-vvvv → includes connection details, SSH-level output
+
+
+1.What is ignore_errors and when do you use it?
+------------------------------------------------
+- 'ignore_errors: yes' allows the playbook to continue even if the task fails.
+- Useful for non-critical tasks or expected failures.
+
+Example:
+- name: Stop a non-existing service
+  service:
+    name: dummy
+    state: stopped
+  ignore_errors: yes
+
+
+2.How do you use register and access the output?
+-----------------------------------------------
+- Use 'register' to store the output of a task.
+- Access it using the registered variable.
+
+Example:
+- name: Check disk space
+  command: df -h
+  register: disk_status
+
+- name: Show output
+  debug:
+    var: disk_status.stdout
+
+
+3.What’s the difference between when, changed_when, and failed_when?
+--------------------------------------------------------------------
+- when: Runs a task only if the condition is true.
+- changed_when: Tells Ansible when to mark the task as "changed".
+- failed_when: Tells Ansible when to mark the task as "failed".
+
+Example:
+- when: ansible_os_family == "RedHat"
+- changed_when: output.stdout != ""
+- failed_when: "'ERROR' in result.stderr"
+
+
+4.What’s the difference between with_items and loop?
+---------------------------------------------------
+- Both are used to loop over a list.
+- 'loop' is newer and recommended.
+- 'with_items' is older but still supported.
+
+Example using loop:
+- name: Install packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - git
+    - vim
+    - curl
+
+
+5.How do you run only tagged tasks in a playbook?
+------------------------------------------------
+- Use --tags option with ansible-playbook command.
+
+Command:
+ansible-playbook site.yml --tags "setup"
+
+
+6.What is the role of handlers and when are they triggered?
+----------------------------------------------------------
+- Handlers are triggered only when notified.
+- Usually used for restarting services after config changes.
+
+Example:
+- name: Update config
+  copy:
+    src: config.conf
+    dest: /etc/myapp.conf
+  notify: Restart app
+
+handlers:
+  - name: Restart app
+    service:
+      name: myapp
+      state: restarted
+
+
+7.How do you use block, rescue, and always for error handling?
+-------------------------------------------------------------
+- block: Try a set of tasks.
+- rescue: Run if block fails.
+- always: Always runs regardless of success or failure.
+
+Example:
+- block:
+    - name: Risky command
+      command: /bin/false
+  rescue:
+    - name: Handle error
+      debug:
+        msg: "Something went wrong"
+  always:
+    - name: Always run
+      debug:
+        msg: "Cleanup step"
 
 
 
