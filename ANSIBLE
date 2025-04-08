@@ -42,6 +42,51 @@ Also, since Ansible is idempotent, I can rerun the playbook safely without causi
 
 
 
+register	Capture output of a task for conditional logic
+rollback	Use backup, block-rescue, or versioning to revert changes if deployment fails
+
+a. Backup before deploy
+
+- name: Backup current WAR file
+  copy:
+    src: /opt/app/app.war
+    dest: /opt/backup/app.war_{{ ansible_date_time.iso8601 }}
+    remote_src: yes
+
+b. Restore backup if deployment fails (using block-rescue)
+
+- name: Deploy application with rollback
+  block:
+    - name: Stop the service
+      service:
+        name: myapp
+        state: stopped
+
+    - name: Deploy new WAR file
+      copy:
+        src: files/new_app.war
+        dest: /opt/app/app.war
+
+    - name: Start the service
+      service:
+        name: myapp
+        state: started
+
+  rescue:
+    - name: Rollback WAR file
+      copy:
+        src: /opt/backup/app.war_2025-04-08T10:00:00Z
+        dest: /opt/app/app.war
+        remote_src: yes
+
+    - name: Start the service after rollback
+      service:
+        name: myapp
+        state: started
+🔄 block: Main deployment
+🚑 rescue: Triggered if any task inside block fails
+
+
 1.What is ignore_errors and when do you use it?
 ------------------------------------------------
 - 'ignore_errors: yes' allows the playbook to continue even if the task fails.
