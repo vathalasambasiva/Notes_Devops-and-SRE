@@ -33,6 +33,15 @@ Verbosity Levels:
 -vvvv → includes connection details, SSH-level output
 
 
+
+11. If a playbook fails midway, how do you resume it?
+Answer: I use:
+
+ansible-playbook site.yml --start-at-task="Task Name"
+Also, since Ansible is idempotent, I can rerun the playbook safely without causing issues.
+
+
+
 1.What is ignore_errors and when do you use it?
 ------------------------------------------------
 - 'ignore_errors: yes' allows the playbook to continue even if the task fails.
