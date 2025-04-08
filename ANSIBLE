@@ -1,0 +1,67 @@
+Syntax validate:
+================
+ansible-playbook your_playbook.yml --syntax-check
+
+ansible-playbook your_playbook.yml --check
+You can simulate execution without making changes:  --  This is helpful to see what would happen without actually running it.
+
+
+
+ansible-playbook -i inventory.ini install_nginx.yml
+
+inventory.ini -- this file is contain the inventory host deatils
+install_nginx.yml -- this is actual tasks and what to do in server
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Idempotence అంటే ఏమిటి?
+
+Ansibleలో Idempotence అనేది ఒక ముఖ్యమైన కాన్సెప్ట్. దీని అర్థం ఏమిటంటే — ఒకే playbookని ఎంతసార్లు నడిపినా (run చేసినా) ఫలితం ఒక్కటే వస్తుంది. అంటే, మొదటి సారి చేసినప్పుడు ఏ మార్పులు జరిగాయో, మళ్ళీ నడిపినప్పుడు అవే మార్పులు మళ్ళీ జరగవు — ఎందుకంటే అవసరమైనప్పుడే మార్పులు జరుగుతాయి.
+
+దీన్ని ఎందుకు ఉపయోగిస్తాం?
+
+Idempotence వలన మనం వృద్ధి చేసిన Infrastructure (servers, configurations వగైరా) నిర్ధిష్టంగా, స్థిరంగా, నమ్మకంగా ఉండేలా చూసుకోవచ్చు. మళ్ళీ మళ్ళీ playbook రన్ చేసినా కొత్త సమస్యలు రావు, లేదా అకస్మాత్తుగా settings మారిపోవు.
+
+ఉదాహరణకు:
+
+ఒక ఫైల్ ఒక నిర్దిష్ట permissions తో ఉండాలి అనే task రాసాం అనుకో. అది ఇప్పటికే అలానే ఉందంటే Ansible దానిని మళ్ళీ మార్చదు. అంతే — ఇది Idempotence వల్ల సాధ్యమవుతుంది.
+
+సంక్షేపంగా చెప్పాలంటే:
+
+Ansible లో Idempotence అనేది ఒక playbookను ఎంతసార్లు నడిపినా అదే ఫలితం వచ్చేలా చూసే విధానం. ఇది Stability మరియు Predictability కోసం చాలా ముఖ్యమైనది.
+
