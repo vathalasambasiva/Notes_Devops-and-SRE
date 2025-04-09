@@ -34,6 +34,21 @@ Verbosity Levels:
 
 
 
+
+
+
+Each folder has a purpose:
+=========================
+tasks/: Main logic (mandatory)
+defaults/: Default variables
+vars/: Variables (higher priority)
+templates/: Jinja2 templates
+files/: Static files
+handlers/: For restarting services, etc.
+meta/: Role dependencies
+
+
+
 11. If a playbook fails midway, how do you resume it?
 Answer: I use:
 
