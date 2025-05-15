@@ -1,0 +1,29 @@
+A Load Balancer (LB) is a service that distributes incoming traffic across multiple backend servers (EC2s, containers, etc.) to:
+
+Improve availability
+
+Increase scalability
+
+Provide fault tolerance
+
+Ensure faster response times
+
+
+🧰 Types of Load Balancers
+1. Application Load Balancer (ALB) – Layer 7 (HTTP/HTTPS)
+Routes based on URL path, headers, query string, host
+
+Best for microservices & REST APIs
+
+Supports host-based and path-based routing
+
+2. Network Load Balancer (NLB) – Layer 4 (TCP/UDP)
+Very fast, handles millions of requests
+
+Best for real-time gaming, video, TCP/UDP services
+
+3. Classic Load Balancer (CLB) – Deprecated, legacy
+Basic LB for EC2, both Layer 4 & 7 support (limited features)
+
+4. Gateway Load Balancer (GWLB) – For third-party appliances
+Used for firewall, intrusion detection, traffic inspection
