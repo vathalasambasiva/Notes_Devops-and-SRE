@@ -1,0 +1,25 @@
+🧑‍💻 What is the job of a Site Reliability Engineer (SRE)?
+A Site Reliability Engineer ensures that services are:
+
+Highly available
+
+Performant
+
+Scalable
+
+Monitored and reliable
+
+SREs bridge the gap between software development and IT operations using automation, monitoring, incident response, and performance tuning.
+
+
+
+🧠 In Short: As an SRE, your work in Prometheus & Grafana includes:
+Setting up monitoring
+
+Writing metrics & alert rules
+
+Creating dashboards
+
+Handling alerts and incidents
+
+Automating health checks and ensuring SLA/SLO compliance
